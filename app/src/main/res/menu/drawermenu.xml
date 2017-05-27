@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+
+<item
+    android:id="@+id/home_page"
+    android:icon="@drawable/about_us"
+    android:title="@string/home"/>
+
+    <item android:id="@+id/videos"
+        android:icon="@drawable/about_us"
+        android:title="@string/videos"
+     />
+    <item android:id="@+id/courses"
+        android:icon="@drawable/about_us"
+        android:title="Courses"/>
+
+        <item android:id="@+id/earning"
+            android:title="Earning"
+            android:icon="@drawable/about_us"/>
+
+        <item android:id="@+id/youtube"
+            android:title="Youtube"
+            android:icon="@drawable/about_us"/>
+
+        <item android:id="@+id/blogs"
+            android:title="Blogs"
+            android:icon="@drawable/about_us"/>
+
+        <item android:id="@+id/events"
+            android:title="Events"
+            android:icon="@drawable/about_us"/>
+
+        <item android:id="@+id/our_services"
+            android:title="Our Services"
+            android:icon="@drawable/about_us"/>
+
+        <item android:id="@+id/about_us"
+            android:title="About Us"
+            android:icon="@drawable/about_us"/>
+
+        <item android:id="@+id/contact_us"
+            android:title="Contact Us"
+            android:icon="@drawable/about_us"/>
+
+    </group>
+</menu>
