@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -50,8 +51,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void displayView(int itemId) {
         Fragment fragment = null;
         switch (itemId){
-            case R.id.home_page:
-                //fragment = new Fragmentone();
+            case R.id.videos:
+                fragment = new FragmentVideoList();
                 break;
             default:
               //  fragment = new Fragmentone();
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        displayView(item.getItemId());
         return false;
     }
 
@@ -77,5 +79,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.overflowmenu, menu);
+        return true;
     }
 }

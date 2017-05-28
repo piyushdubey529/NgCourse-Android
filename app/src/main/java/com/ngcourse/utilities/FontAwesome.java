@@ -1,4 +1,4 @@
-package com.ngcourse;
+package com.ngcourse.utilities;
 
 import android.content.Context;
 import android.graphics.Typeface;
