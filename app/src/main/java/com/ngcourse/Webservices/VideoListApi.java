@@ -1,10 +1,12 @@
 package com.ngcourse.Webservices;
 
 import android.content.SharedPreferences;
+import android.nfc.Tag;
 import android.support.v4.app.FragmentActivity;
 import com.ngcourse.NetworkCall.NetworkCallResponse;
 import com.ngcourse.NetworkCall.NetworkService;
 import com.ngcourse.R;
+import com.ngcourse.ResponseInterfaces.ResponseVideoList;
 import com.ngcourse.Settings.Config;
 import com.ngcourse.beans.Video;
 import com.ngcourse.retrofitAdapter.ConvertInputStream;
@@ -33,14 +35,16 @@ public class VideoListApi {
     private  SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     public NetworkCallResponse delegateNetworkCall = null;//Call back interface
+    public ResponseVideoList responseVideoList = null;
 
     public VideoListApi(FragmentActivity mContext) {
         this.mContext = mContext;
         sharedPreferences = ReferenceWrapper.getReferenceProvider(mContext).getSharedPreferences();
     }
 
-    public void getVideoListApi(NetworkCallResponse networkCallResponse){
-        delegateNetworkCall = networkCallResponse;//Assigning call back interface
+    public void getVideoListApi(NetworkCallResponse networkCallResponse, ResponseVideoList responseVideoList){
+        this.delegateNetworkCall = networkCallResponse;//Assigning call back interface
+        this.responseVideoList =responseVideoList;
         if (!InternetConnection.isInternetConnected(mContext)) {
             AppToast.showShortToast(mContext, mContext.getResources().getString(R.string.no_internet));
             ToneAndVibrate.errorVibrate(mContext);
@@ -80,6 +84,8 @@ public class VideoListApi {
                 video.setVideoUrl(jsonObject.getString("videoUrl"));
                 videoList.add(video);
             }
+            delegateNetworkCall.callResponse(true, API_TAG);
+            responseVideoList.responseVideos(videoList);
         } catch (JSONException e) {
             e.printStackTrace();
         }

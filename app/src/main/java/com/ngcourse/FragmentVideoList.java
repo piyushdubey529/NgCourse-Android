@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.ngcourse.NetworkCall.NetworkCallResponse;
+import com.ngcourse.ResponseInterfaces.ResponseVideoList;
 import com.ngcourse.Webservices.VideoListApi;
 import com.ngcourse.adapter.VideoListAdapter;
 import com.ngcourse.beans.Video;
@@ -23,8 +24,7 @@ import java.util.ArrayList;
  * Created by piyush on 28/5/17.
  */
 
-public class FragmentVideoList extends Fragment implements View.OnClickListener, NetworkCallResponse{
-    private Button click;
+public class FragmentVideoList extends Fragment implements View.OnClickListener, NetworkCallResponse, ResponseVideoList{
     private FragmentActivity mContext;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -40,7 +40,6 @@ public class FragmentVideoList extends Fragment implements View.OnClickListener,
     }
 
     private void setListener() {
-        click.setOnClickListener(this);
     }
 
     @Override
@@ -53,8 +52,13 @@ public class FragmentVideoList extends Fragment implements View.OnClickListener,
     }
 
     private void setData() {
+        VideoListApi videoListApi = new VideoListApi(mContext);
+        videoListApi.getVideoListApi(this, this);
         mLayoutManager = new LinearLayoutManager(mContext);
         videoListAdapter = new VideoListAdapter(mContext, videoList);
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(videoListAdapter);
     }
 
     private void initView() {
@@ -63,12 +67,18 @@ public class FragmentVideoList extends Fragment implements View.OnClickListener,
 
     @Override
     public void onClick(View v) {
-        VideoListApi videoListApi = new VideoListApi(mContext);
-        videoListApi.getVideoListApi(this);
+
     }
 
     @Override
     public void callResponse(Boolean response, String API_TAG) {
 
+    }
+
+    @Override
+    public void responseVideos(ArrayList<Video> videoList) {
+     this.videoList = videoList;
+        videoListAdapter.videoList = videoList;
+        videoListAdapter.notifyDataSetChanged();
     }
 }
