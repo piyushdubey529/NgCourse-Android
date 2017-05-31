@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.VideoView;
 
@@ -22,18 +23,19 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
 
     private Context context;
     public ArrayList<Video> videoList;
+    public View.OnClickListener onClickListener;
 
-    public VideoListAdapter(Context mContext, ArrayList<Video> videoList){
+    public VideoListAdapter(Context mContext, ArrayList<Video> videoList, View.OnClickListener clickListener){
         this.context = mContext;
         this.videoList = videoList;
+        this.onClickListener = clickListener;
     }
 
     @Override
     public VideoListAdapterHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_video_list_layout, parent, false);
-        VideoListAdapterHolder viewHolder = new VideoListAdapterHolder(view);
-        return viewHolder;
-
+        view.setOnClickListener(onClickListener);
+       return new VideoListAdapterHolder(view);
     }
 
     @Override
@@ -41,7 +43,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
      Video video = videoList.get(position);
         holder.videoName.setText(video.getVideoName());
         Uri uri = Uri.parse(video.getVideoUrl());
-        holder.videoView.setVideoURI(uri);
+
     }
 
     @Override
@@ -52,12 +54,12 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
     }
 
     public class VideoListAdapterHolder extends RecyclerView.ViewHolder{
-        private VideoView videoView;
+        private FrameLayout videoView;
         private TextView videoName;
 
         public VideoListAdapterHolder(View itemView) {
             super(itemView);
-            videoView = (VideoView) itemView.findViewById(R.id.videoView);
+            videoView = (FrameLayout) itemView.findViewById(R.id.videoView);
             videoName = (TextView) itemView.findViewById(R.id.videoName);
         }
     }

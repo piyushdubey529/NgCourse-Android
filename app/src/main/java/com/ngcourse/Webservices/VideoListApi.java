@@ -1,7 +1,9 @@
 package com.ngcourse.Webservices;
 
+import android.annotation.TargetApi;
 import android.content.SharedPreferences;
 import android.nfc.Tag;
+import android.os.Build;
 import android.support.v4.app.FragmentActivity;
 import com.ngcourse.NetworkCall.NetworkCallResponse;
 import com.ngcourse.NetworkCall.NetworkService;
@@ -70,10 +72,12 @@ public class VideoListApi {
         });
     }
 
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     private void parseJsonResult(String result) {
         JSONArray jsonResponseArray = null;
         try {
-            jsonResponseArray = new JSONArray(result);
+            JSONObject  jsonObjectResponse = new JSONObject(result);
+            jsonResponseArray = jsonObjectResponse.getJSONArray("object");
             ArrayList<Video> videoList = new ArrayList<>();
             for(int i=0; i<jsonResponseArray.length(); i++){
                 JSONObject jsonObject = jsonResponseArray.getJSONObject(i);

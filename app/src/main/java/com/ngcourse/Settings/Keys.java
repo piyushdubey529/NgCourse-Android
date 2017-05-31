@@ -10,6 +10,7 @@ public class Keys {
 
     //SharedPreference
     public static final String MY_PREFERENCES = "skulocityPrefs";
+    public static final String YOUTUBE_API_KEY = "AIzaSyB5a1MvQvL0u3oYfnQr1JreuD6vVjvT1G4";
 
     //SharedPreference Keys
 
