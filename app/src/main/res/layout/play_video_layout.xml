@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
     <FrameLayout
         android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"
@@ -8,5 +9,109 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:weightSum="4">
 
+        <com.ngcourse.utilities.FontAwesome
+            android:id="@+id/like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/icon_like"
+            android:textSize="20sp"
+            android:layout_marginLeft="50dp"
+            android:layout_weight="1"
+            android:textColor="@color/cardview_light_background"
+            />
+
+        <com.ngcourse.utilities.FontAwesome
+            android:id="@+id/share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/icon_share"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:textColor="@color/cardview_light_background"
+            />
+        <com.ngcourse.utilities.FontAwesome
+            android:id="@+id/watchlist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/icon_watchlist"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:textColor="@color/cardview_light_background"
+            />
+        <com.ngcourse.utilities.FontAwesome
+            android:id="@+id/downloads"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/icon_download"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:textColor="@color/cardview_light_background"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="5dp"
+       >
+
+        <TextView
+            android:id="@+id/videoName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/cardview_light_background"
+            android:text="VideoName"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/technologyTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/cardview_light_background"
+                android:gravity="center"
+                android:text="Technology: "/>
+
+            <TextView
+                android:id="@+id/technology"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/cardview_light_background"
+                android:gravity="center" />
+        </LinearLayout>
+
+     <LinearLayout
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content">
+         <TextView
+             android:id="@+id/topicTag"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:textColor="@color/cardview_light_background"
+             android:gravity="center"
+             android:text="Topic: "/>
+
+         <TextView
+             android:id="@+id/topic"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:textColor="@color/cardview_light_background"
+             android:gravity="center" />
+     </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

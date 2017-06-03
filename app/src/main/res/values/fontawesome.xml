@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="icon_search">&#xf002;</string>
+    <string name="icon_like">&#xf164;</string>
+    <string name="icon_share">&#xf1e0;</string>
+    <string name="icon_download">&#xf019;</string>
+    <string name="icon_watchlist">&#xf017;</string>
 </resources>

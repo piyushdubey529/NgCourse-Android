@@ -1,24 +1,22 @@
 package com.ngcourse;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-
 import com.ngcourse.NetworkCall.NetworkCallResponse;
 import com.ngcourse.ResponseInterfaces.ResponseVideoList;
 import com.ngcourse.Webservices.VideoListApi;
 import com.ngcourse.adapter.VideoListAdapter;
 import com.ngcourse.beans.Video;
-
 import java.util.ArrayList;
 
 /**
@@ -31,18 +29,6 @@ public class FragmentVideoList extends Fragment implements View.OnClickListener,
     private RecyclerView.LayoutManager mLayoutManager;
     private VideoListAdapter videoListAdapter;
     private ArrayList<Video> videoList;
-
-    private final View.OnClickListener videoItemClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            int itemPosition = recyclerView.getChildLayoutPosition(v);
-            String videoId;
-            String url = videoList.get(itemPosition).getVideoUrl();
-            String[] urlArray = url.split("=");
-            videoId = urlArray[2];
-            openPlayVideoFragment(videoId);
-        }
-    };
 
     private void openPlayVideoFragment(String videoId) {
         Fragment playVideoFragment= new FragmentPlayYoutubeVideo();
@@ -77,9 +63,12 @@ public class FragmentVideoList extends Fragment implements View.OnClickListener,
         VideoListApi videoListApi = new VideoListApi(mContext);
         videoListApi.getVideoListApi(this, this);
         mLayoutManager = new LinearLayoutManager(mContext);
-        videoListAdapter = new VideoListAdapter(mContext, videoList, videoItemClickListener);
+        videoListAdapter = new VideoListAdapter(mContext, videoList);
         recyclerView.setLayoutManager(mLayoutManager);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), LinearLayoutManager.VERTICAL);
+        recyclerView.addItemDecoration(dividerItemDecoration);
         recyclerView.setHasFixedSize(true);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(videoListAdapter);
     }
 

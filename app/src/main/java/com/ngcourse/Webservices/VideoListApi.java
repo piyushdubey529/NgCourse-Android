@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.SharedPreferences;
 import android.nfc.Tag;
 import android.os.Build;
+import android.os.Parcel;
 import android.support.v4.app.FragmentActivity;
 import com.ngcourse.NetworkCall.NetworkCallResponse;
 import com.ngcourse.NetworkCall.NetworkService;
@@ -55,6 +56,7 @@ public class VideoListApi {
         }
         NetworkService service = RetrofitAdapter.createService(NetworkService.class, Config.BASE_URL);
         service.getVideoList(new Callback<Response>() {
+
             @Override
             public void success(Response body, Response obj) {
                 String result = ConvertInputStream.getFormattedResponse(body);
@@ -81,11 +83,13 @@ public class VideoListApi {
             ArrayList<Video> videoList = new ArrayList<>();
             for(int i=0; i<jsonResponseArray.length(); i++){
                 JSONObject jsonObject = jsonResponseArray.getJSONObject(i);
-                Video video = new Video();
+                 Video video = new Video();
                 video.setId(jsonObject.getString("_id"));
                 video.setTopic(jsonObject.getString("topic"));
                 video.setVideoName(jsonObject.getString("videoName"));
                 video.setVideoUrl(jsonObject.getString("videoUrl"));
+                video.setYoutubeVideoId(jsonObject.getString("youtubeVideoId"));
+                video.setTechnology(jsonObject.getString("technology"));
                 videoList.add(video);
             }
             delegateNetworkCall.callResponse(true, API_TAG);
