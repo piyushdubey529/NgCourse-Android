@@ -10,6 +10,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.youtube.player.YouTubeInitializationResult;
@@ -36,6 +38,10 @@ public class FragmentPlayYoutubeVideo extends Fragment implements View.OnClickLi
     private TextView topic;
     private Video video;
     private FontAwesome shareButton;
+    private LinearLayout searchLayout;
+    private EditText searchInput;
+    private FontAwesome filter;
+    private FontAwesome backButton;
 
     @Override
     public void onAttach(Activity activity) {
@@ -88,6 +94,12 @@ public class FragmentPlayYoutubeVideo extends Fragment implements View.OnClickLi
         technology = (TextView) mContext.findViewById(R.id.technology);
         topic = (TextView) mContext.findViewById(R.id.topic);
         shareButton = (FontAwesome) mContext.findViewById(R.id.share);
+        searchLayout = (LinearLayout) mContext.findViewById(R.id.searchLayout);
+        searchInput = (EditText) mContext.findViewById(R.id.searchInput);
+        filter = (FontAwesome) mContext.findViewById(R.id.filter_icon);
+        backButton = (FontAwesome) mContext.findViewById(R.id.backButton);
+        searchLayout.setVisibility(View.GONE);
+        filter.setVisibility(View.GONE);
     }
 
 

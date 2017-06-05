@@ -12,20 +12,28 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+import com.ngcourse.utilities.FontAwesome;
+
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
+        View.OnClickListener{
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
     private TextView searchIcon;
+    private LinearLayout searchLayout;
+    private EditText searchInput;
+    private FontAwesome filterIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
-        setFonts();
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -35,10 +43,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         displayView(R.id.home_page);
+        setListener();
     }
 
-    private void setFonts() {
-
+    private void setListener() {
+        searchIcon.setOnClickListener(this);
     }
 
     private void initView() {
@@ -46,6 +55,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView = (NavigationView) findViewById(R.id.navigationview);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         searchIcon = (TextView) findViewById(R.id.search_icon);
+        searchLayout = (LinearLayout) findViewById(R.id.searchLayout);
+        searchInput = (EditText) findViewById(R.id.searchInput);
+        filterIcon = (FontAwesome) findViewById(R.id.filter_icon);
+        filterIcon.setVisibility(View.GONE);
     }
 
     private void displayView(int itemId) {
@@ -85,5 +98,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.overflowmenu, menu);
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+     switch (v.getId()){
+     }
     }
 }

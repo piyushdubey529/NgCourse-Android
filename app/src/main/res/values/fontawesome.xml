@@ -5,4 +5,7 @@
     <string name="icon_share">&#xf1e0;</string>
     <string name="icon_download">&#xf019;</string>
     <string name="icon_watchlist">&#xf017;</string>
+    <string name="icon_back">&#xf060;</string>
+    <string name="icon_filter">&#xf0b0;</string>
+    <string name="icon_cross">&#xf00d;</string>
 </resources>

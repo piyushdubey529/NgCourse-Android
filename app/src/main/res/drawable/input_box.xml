@@ -8,7 +8,7 @@
         android:color="@color/input_box_boundary" >
     </stroke>
 
-    <solid android:color="@android:color/black" />
+    <solid android:color="@android:color/background_light" />
 
    <!-- <corners
         android:bottomLeftRadius="5dp"
