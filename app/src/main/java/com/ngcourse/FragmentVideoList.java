@@ -16,13 +16,18 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ngcourse.NetworkCall.NetworkCallResponse;
 import com.ngcourse.ResponseInterfaces.ResponseVideoList;
+import com.ngcourse.Webservices.FilterVideoListApi;
+import com.ngcourse.Webservices.SearchVideoListApi;
 import com.ngcourse.Webservices.VideoListApi;
 import com.ngcourse.adapter.VideoListAdapter;
 import com.ngcourse.beans.Video;
@@ -36,11 +41,13 @@ import java.util.ArrayList;
 
 public class FragmentVideoList extends Fragment implements View.OnClickListener, NetworkCallResponse, ResponseVideoList,
         TextWatcher{
+
+    public static String API_TAG;
     private FragmentActivity mContext;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private VideoListAdapter videoListAdapter;
-    private ArrayList<Video> videoList;
+    private ArrayList<Video> videoList = new ArrayList<>();
     private FontAwesome filterIcon;
     private FontAwesome searchIcon;
     private Toolbar toolbar;
@@ -48,6 +55,11 @@ public class FragmentVideoList extends Fragment implements View.OnClickListener,
     private EditText searchInput;
     private FontAwesome backButton;
     private AlertDialog alertDialog;
+    private FontAwesome cross;
+    private Button applyFilter;
+    private RadioGroup radioGroup;
+    private View dialogView;
+
 
 
     @Nullable
@@ -62,6 +74,25 @@ public class FragmentVideoList extends Fragment implements View.OnClickListener,
         searchIcon.setOnClickListener(this);
         backButton.setOnClickListener(this);
         searchInput.addTextChangedListener(this);
+        setScrollListener();
+    }
+
+    private void setScrollListener() {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int totalItemCount = mLayoutManager.getItemCount();
+                int lastVisibleItemCount = ((LinearLayoutManager)mLayoutManager).findLastVisibleItemPosition();
+                if(totalItemCount > 0){
+                    if((totalItemCount-1) == lastVisibleItemCount){
+                        int skip = videoList.size();
+                        VideoListApi videoListApi = new VideoListApi(String.valueOf(skip), "10", mContext);
+                        videoListApi.getVideoListApi(FragmentVideoList.this, FragmentVideoList.this);
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -74,7 +105,7 @@ public class FragmentVideoList extends Fragment implements View.OnClickListener,
     }
 
     private void setData() {
-        VideoListApi videoListApi = new VideoListApi(mContext);
+        VideoListApi videoListApi = new VideoListApi("0", "10", mContext);
         videoListApi.getVideoListApi(this, this);
         mLayoutManager = new LinearLayoutManager(mContext);
         videoListAdapter = new VideoListAdapter(mContext, videoList);
@@ -113,27 +144,48 @@ public class FragmentVideoList extends Fragment implements View.OnClickListener,
              searchLayout.setVisibility(View.GONE);
              toolbar.setVisibility(View.VISIBLE);
              break;
+         case R.id.cross:
+             alertDialog.dismiss();
+             break;
+         case R.id.apply:
+             int  selectedId = radioGroup.getCheckedRadioButtonId();
+             RadioButton radioButton = (RadioButton) dialogView.findViewById(selectedId);
+             String keyword = radioButton.getText().toString();
+             FilterVideoListApi filterVideoListApi = new FilterVideoListApi(mContext, keyword, "0", "10");
+             filterVideoListApi.getFilterVideoListApi(this, this);
+             break;
      }
     }
 
     private void openFilterDialog() {
         alertDialog = new AlertDialog.Builder(mContext).create();
         LayoutInflater inflater = LayoutInflater.from(mContext);
-        View dialogView = inflater.inflate(R.layout.filter_list_dialog, null);
+         dialogView = inflater.inflate(R.layout.filter_list_dialog, null);
         alertDialog.setView(dialogView);
-
+        cross = (FontAwesome) dialogView.findViewById(R.id.cross);
+        applyFilter = (Button) dialogView.findViewById(R.id.apply);
+        radioGroup = (RadioGroup) dialogView.findViewById(R.id.radiogroup);
+        cross.setOnClickListener(this);
+        applyFilter.setOnClickListener(this);
         alertDialog.show();
     }
 
     @Override
     public void callResponse(Boolean response, String API_TAG) {
-
+     this.API_TAG = API_TAG;
     }
 
     @Override
     public void responseVideos(ArrayList<Video> videoList) {
-     this.videoList = videoList;
-        videoListAdapter.videoList = videoList;
+        if(this.API_TAG.equals("VideoListApi")){
+            for(int i =0; i<videoList.size(); i++){
+                Video video = videoList.get(i);
+                if(!this.videoList.contains(video)) this.videoList.add(video);
+            }
+            videoListAdapter.videoList = this.videoList;
+        }else{
+            this.videoList = videoList;
+        }
         videoListAdapter.notifyDataSetChanged();
     }
 
@@ -144,7 +196,8 @@ public class FragmentVideoList extends Fragment implements View.OnClickListener,
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+        SearchVideoListApi searchVideoListApi = new SearchVideoListApi(mContext, s.toString(), "10", "0");
+        searchVideoListApi.getSearchVideoListApi(this, this);
     }
 
     @Override

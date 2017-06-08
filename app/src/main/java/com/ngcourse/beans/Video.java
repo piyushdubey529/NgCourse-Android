@@ -104,4 +104,11 @@ public class Video implements Parcelable{
         dest.writeString(youtubeVideoId);
         dest.writeString(technology);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj !=null && obj instanceof Video) return this.id.equals(((Video)obj).id);
+        return false;
+    }
+
 }

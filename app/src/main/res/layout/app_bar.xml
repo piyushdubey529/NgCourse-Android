@@ -31,22 +31,24 @@
 
         <com.ngcourse.utilities.FontAwesome
             android:id="@+id/search_icon"
-            android:layout_width="wrap_content"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:text="@string/icon_search"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="10dp"
             android:textSize="20sp"
             android:textColor="@android:color/background_light"
             />
 
         <com.ngcourse.utilities.FontAwesome
             android:id="@+id/filter_icon"
-            android:layout_width="wrap_content"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:text="@string/icon_filter"
             android:layout_toLeftOf="@+id/search_icon"
             android:layout_marginRight="20dp"
+            android:layout_marginLeft="10dp"
             android:textSize="20sp"
             android:textColor="@color/cardview_light_background"
             android:visibility="gone"/>
@@ -71,6 +73,8 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_margin="10dp"
+          android:layout_marginLeft="20dp"
+          android:layout_marginRight="10dp"
           android:textSize="20sp"
           android:text="@string/icon_back"
           android:textColor="@color/colorAccent"/>

@@ -2,9 +2,7 @@ package com.ngcourse.Webservices;
 
 import android.annotation.TargetApi;
 import android.content.SharedPreferences;
-import android.nfc.Tag;
 import android.os.Build;
-import android.os.Parcel;
 import android.support.v4.app.FragmentActivity;
 import com.ngcourse.NetworkCall.NetworkCallResponse;
 import com.ngcourse.NetworkCall.NetworkService;
@@ -39,8 +37,12 @@ public class VideoListApi {
     private SharedPreferences.Editor editor;
     public NetworkCallResponse delegateNetworkCall = null;//Call back interface
     public ResponseVideoList responseVideoList = null;
+    private String limit;
+    private String skip;
 
-    public VideoListApi(FragmentActivity mContext) {
+    public VideoListApi(String skip, String limit, FragmentActivity mContext) {
+        this.skip = skip;
+        this.limit = limit;
         this.mContext = mContext;
         sharedPreferences = ReferenceWrapper.getReferenceProvider(mContext).getSharedPreferences();
     }
@@ -55,7 +57,7 @@ public class VideoListApi {
             return;
         }
         NetworkService service = RetrofitAdapter.createService(NetworkService.class, Config.BASE_URL);
-        service.getVideoList(new Callback<Response>() {
+        service.getVideoList(skip, limit, new Callback<Response>() {
 
             @Override
             public void success(Response body, Response obj) {

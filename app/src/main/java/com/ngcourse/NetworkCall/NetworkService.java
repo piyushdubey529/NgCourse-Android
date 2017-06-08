@@ -1,11 +1,11 @@
 package com.ngcourse.NetworkCall;
 
 import com.ngcourse.Settings.Config;
-
 import retrofit.http.Headers;
 import retrofit.Callback;
 import retrofit.client.Response;
 import retrofit.http.GET;
+import retrofit.http.Path;
 import retrofit.http.Query;
 
 /**
@@ -16,8 +16,20 @@ public interface NetworkService {
     @Headers({
             "Content-type: application/json",
     })
-    @GET(Config.GET_VIDEO_LIST_URL)
-    void getVideoList(Callback<Response> cb);
+    @GET(Config.GET_VIDEO_LIST_URL + "/{skip}/{limit}")
+    void getVideoList(@Path("skip") String skip,
+                      @Path("limit") String limit,
+                      Callback<Response> cb);
+
     @GET(Config.GET_SEARCHED_VIDEO_LIST_URL )
-    void getSearchVideoList(Callback<Response> cb);
+    void getSearchVideoList(@Query("keyword") String keyword,
+                            @Query("limit") String limit,
+                            @Query("skip") String skip,
+                            Callback<Response> cb);
+
+    @GET(Config.GET_FILTERED_VIDEO_LIST_URL + "/{filterkey}/{skip}/{limit}" )
+    void getFilteredVideoList(@Path("filterkey") String filterKey,
+                              @Path("skip") String skip,
+                              @Path("limit") String limit,
+                              Callback<Response> cb);
 }
