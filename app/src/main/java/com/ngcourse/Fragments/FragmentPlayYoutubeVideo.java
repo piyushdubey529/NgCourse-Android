@@ -1,4 +1,4 @@
-package com.ngcourse;
+package com.ngcourse.Fragments;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
+import com.ngcourse.R;
 import com.ngcourse.Settings.Keys;
 import com.ngcourse.beans.Video;
 import com.ngcourse.utilities.FontAwesome;

@@ -17,6 +17,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.ngcourse.Fragments.FragmentCourseList;
+import com.ngcourse.Fragments.FragmentVideoList;
 import com.ngcourse.utilities.FontAwesome;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
@@ -66,6 +68,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (itemId){
             case R.id.videos:
                 fragment = new FragmentVideoList();
+                break;
+            case R.id.courses:
+                fragment = new FragmentCourseList();
                 break;
             default:
               //  fragment = new Fragmentone();

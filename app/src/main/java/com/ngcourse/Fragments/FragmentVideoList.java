@@ -1,11 +1,12 @@
-package com.ngcourse;
+package com.ngcourse.Fragments;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,15 +17,15 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.ngcourse.NetworkCall.NetworkCallResponse;
+import com.ngcourse.R;
 import com.ngcourse.ResponseInterfaces.ResponseVideoList;
 import com.ngcourse.Webservices.FilterVideoListApi;
 import com.ngcourse.Webservices.SearchVideoListApi;
@@ -129,6 +130,7 @@ public class FragmentVideoList extends Fragment implements View.OnClickListener,
         filterIcon.setVisibility(View.VISIBLE);
     }
 
+
     @Override
     public void onClick(View v) {
      switch (v.getId()){
@@ -139,10 +141,13 @@ public class FragmentVideoList extends Fragment implements View.OnClickListener,
              toolbar.setVisibility(View.GONE);
              searchLayout.setVisibility(View.VISIBLE);
              searchInput.requestFocus();
+             openSoftKeyboard();
              break;
          case R.id.backButton:
              searchLayout.setVisibility(View.GONE);
              toolbar.setVisibility(View.VISIBLE);
+             InputMethodManager imm = (InputMethodManager)mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+             imm.hideSoftInputFromWindow(searchLayout.getApplicationWindowToken(), 0);
              break;
          case R.id.cross:
              alertDialog.dismiss();
@@ -155,6 +160,14 @@ public class FragmentVideoList extends Fragment implements View.OnClickListener,
              filterVideoListApi.getFilterVideoListApi(this, this);
              break;
      }
+    }
+
+    private void openSoftKeyboard() {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager)mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.toggleSoftInputFromWindow(
+                searchLayout.getApplicationWindowToken(),
+                InputMethodManager.SHOW_FORCED, 0);
     }
 
     private void openFilterDialog() {
@@ -185,6 +198,7 @@ public class FragmentVideoList extends Fragment implements View.OnClickListener,
             videoListAdapter.videoList = this.videoList;
         }else{
             this.videoList = videoList;
+            videoListAdapter.videoList = this.videoList;
         }
         videoListAdapter.notifyDataSetChanged();
     }
@@ -196,8 +210,19 @@ public class FragmentVideoList extends Fragment implements View.OnClickListener,
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        SearchVideoListApi searchVideoListApi = new SearchVideoListApi(mContext, s.toString(), "10", "0");
-        searchVideoListApi.getSearchVideoListApi(this, this);
+        /*SearchVideoListApi searchVideoListApi = new SearchVideoListApi(mContext, s.toString(), "10", "10");
+        searchVideoListApi.getSearchVideoListApi(this, this);*/
+        Bundle bundle = new Bundle();
+        bundle.putString("keyword", s.toString());
+        openSearchFragment(bundle);
+    }
+
+    private void openSearchFragment(Bundle bundle) {
+        Fragment fragment = new FragmentSearchVideoList();
+        fragment.setArguments(bundle);
+        FragmentTransaction fragmentTransaction = mContext.getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_frame, fragment);
+        fragmentTransaction.commit();
     }
 
     @Override

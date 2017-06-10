@@ -85,6 +85,7 @@
           android:layout_height="wrap_content"
           android:textColor="@android:color/black"
           android:background="@android:color/transparent"
+         android:singleLine="true"
           android:textSize="20sp"
           android:hint="Search..." />
   </LinearLayout>

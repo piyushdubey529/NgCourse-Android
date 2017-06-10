@@ -32,4 +32,7 @@ public interface NetworkService {
                               @Path("skip") String skip,
                               @Path("limit") String limit,
                               Callback<Response> cb);
+
+    @GET(Config.GET_COURSE_LIST_URL)
+    void getCourseList(Callback<Response> cb);
 }
