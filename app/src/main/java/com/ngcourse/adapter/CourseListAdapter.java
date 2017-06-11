@@ -1,13 +1,20 @@
 package com.ngcourse.adapter;
 
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.ngcourse.Fragments.FragmentCourseVideoList;
+import com.ngcourse.Fragments.FragmentPlayYoutubeVideo;
 import com.ngcourse.R;
+import com.ngcourse.beans.Course;
 
 import java.util.ArrayList;
 
@@ -17,9 +24,9 @@ import java.util.ArrayList;
 
 public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.CourseViewHolder>{
     private FragmentActivity mContext;
-    public ArrayList<String> courseList;
+    public ArrayList<Course> courseList;
 
-    public CourseListAdapter(FragmentActivity mContext, ArrayList<String> courseList){
+    public CourseListAdapter(FragmentActivity mContext, ArrayList<Course> courseList){
         this.mContext = mContext;
         this.courseList = courseList;
     }
@@ -31,8 +38,23 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Co
     }
 
     @Override
-    public void onBindViewHolder(CourseViewHolder holder, int position) {
-      holder.courseName.setText(courseList.get(position));
+    public void onBindViewHolder(CourseViewHolder holder, final int position) {
+      holder.courseName.setText(courseList.get(position).getCourseName());
+        holder.rowCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openFragmentCourseVideoList(courseList.get(position).getTechnology());
+            }
+        });
+    }
+
+    private void openFragmentCourseVideoList(String keyword) {
+        Fragment fragment= new FragmentCourseVideoList();
+        FragmentManager fragmentManager = mContext.getSupportFragmentManager();
+        Bundle bundle =new Bundle();
+        bundle.putString("keyword", keyword);
+        fragment.setArguments(bundle);
+        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
     }
 
     @Override
@@ -43,10 +65,11 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Co
 
     public class CourseViewHolder extends RecyclerView.ViewHolder{
         private TextView courseName;
-
+         private CardView rowCardView;
         public CourseViewHolder(View itemView) {
             super(itemView);
             courseName = (TextView) itemView.findViewById(R.id.courseName);
+            rowCardView = (CardView) itemView.findViewById(R.id.cardView_row);
         }
     }
 }

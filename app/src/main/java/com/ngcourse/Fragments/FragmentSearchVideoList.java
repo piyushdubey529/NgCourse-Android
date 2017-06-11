@@ -65,11 +65,7 @@ public class FragmentSearchVideoList extends Fragment implements NetworkCallResp
     }
 
     private void setListener() {
-        /*filterIcon.setOnClickListener(this);
-        searchIcon.setOnClickListener(this);
-        backButton.setOnClickListener(this);
-        searchInput.addTextChangedListener(this);*/
-      /*  setScrollListener();*/
+
     }
 
     private void setData() {

@@ -14,23 +14,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-
 import com.ngcourse.NetworkCall.NetworkCallResponse;
 import com.ngcourse.R;
 import com.ngcourse.ResponseInterfaces.ResponseVideoList;
-import com.ngcourse.Webservices.FilterVideoListApi;
-import com.ngcourse.Webservices.SearchVideoListApi;
+import com.ngcourse.Webservices.CourseVideoListApi;
+import com.ngcourse.adapter.CourseListAdapter;
 import com.ngcourse.adapter.VideoListAdapter;
+import com.ngcourse.beans.Course;
 import com.ngcourse.beans.Video;
 import com.ngcourse.utilities.FontAwesome;
-
 import java.util.ArrayList;
 
 /**
  * Created by piyush on 10/6/17.
  */
 
-public class FragmentFilterVideoList extends Fragment implements NetworkCallResponse, ResponseVideoList{
+public class FragmentCourseVideoList extends Fragment implements NetworkCallResponse, ResponseVideoList {
+
     public static String API_TAG;
     private FragmentActivity mContext;
     private RecyclerView recyclerView;
@@ -60,6 +60,7 @@ public class FragmentFilterVideoList extends Fragment implements NetworkCallResp
         setData();
     }
 
+
     private void setListener() {
 
     }
@@ -67,8 +68,8 @@ public class FragmentFilterVideoList extends Fragment implements NetworkCallResp
     private void setData() {
         Bundle bundle = getArguments();
         String keyword = bundle.getString("keyword");
-             FilterVideoListApi filterVideoListApi = new FilterVideoListApi(mContext, keyword, "0", "10");
-                 filterVideoListApi.getFilterVideoListApi(this, this);
+        CourseVideoListApi courseVideoListApi = new CourseVideoListApi(keyword, "0", "10", mContext);
+        courseVideoListApi.getCourseVideoListApi(this, this);
         mLayoutManager = new LinearLayoutManager(mContext);
         videoListAdapter = new VideoListAdapter(mContext, videoList);
         recyclerView.setLayoutManager(mLayoutManager);
@@ -91,16 +92,16 @@ public class FragmentFilterVideoList extends Fragment implements NetworkCallResp
         filterIcon.setVisibility(View.VISIBLE);
     }
 
-
     @Override
     public void callResponse(Boolean response, String API_TAG) {
 
     }
 
+
     @Override
     public void responseVideos(ArrayList<Video> videoList) {
         this.videoList = videoList;
-        videoListAdapter.videoList = this.videoList;
+        videoListAdapter.videoList = videoList;
         videoListAdapter.notifyDataSetChanged();
     }
 }

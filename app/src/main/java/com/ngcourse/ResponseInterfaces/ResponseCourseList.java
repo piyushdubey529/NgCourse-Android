@@ -1,5 +1,6 @@
 package com.ngcourse.ResponseInterfaces;
 
+import com.ngcourse.beans.Course;
 import com.ngcourse.beans.Video;
 
 import java.util.ArrayList;
@@ -9,5 +10,5 @@ import java.util.ArrayList;
  */
 
 public interface ResponseCourseList {
-    public void responseCourses(ArrayList<String> courseList);
+    public void responseCourses(ArrayList<Course> courseList);
 }

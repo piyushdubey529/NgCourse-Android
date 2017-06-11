@@ -14,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.ngcourse.NetworkCall.NetworkCallResponse;
 import com.ngcourse.R;
@@ -41,7 +43,7 @@ import java.util.ArrayList;
  */
 
 public class FragmentVideoList extends Fragment implements View.OnClickListener, NetworkCallResponse, ResponseVideoList,
-        TextWatcher{
+        TextWatcher, EditText.OnEditorActionListener{
 
     public static String API_TAG;
     private FragmentActivity mContext;
@@ -75,6 +77,7 @@ public class FragmentVideoList extends Fragment implements View.OnClickListener,
         searchIcon.setOnClickListener(this);
         backButton.setOnClickListener(this);
         searchInput.addTextChangedListener(this);
+        searchInput.setOnEditorActionListener(this);
         setScrollListener();
     }
 
@@ -146,8 +149,7 @@ public class FragmentVideoList extends Fragment implements View.OnClickListener,
          case R.id.backButton:
              searchLayout.setVisibility(View.GONE);
              toolbar.setVisibility(View.VISIBLE);
-             InputMethodManager imm = (InputMethodManager)mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
-             imm.hideSoftInputFromWindow(searchLayout.getApplicationWindowToken(), 0);
+             closeSoftKeyboard();
              break;
          case R.id.cross:
              alertDialog.dismiss();
@@ -155,11 +157,29 @@ public class FragmentVideoList extends Fragment implements View.OnClickListener,
          case R.id.apply:
              int  selectedId = radioGroup.getCheckedRadioButtonId();
              RadioButton radioButton = (RadioButton) dialogView.findViewById(selectedId);
-             String keyword = radioButton.getText().toString();
-             FilterVideoListApi filterVideoListApi = new FilterVideoListApi(mContext, keyword, "0", "10");
-             filterVideoListApi.getFilterVideoListApi(this, this);
+             String keyword = null;
+             if(radioButton != null){
+                keyword = radioButton.getText().toString();
+                 Bundle bundle = new Bundle();
+                 bundle.putString("keyword", keyword.toLowerCase());
+                 opentFilterFragment(bundle);
+             }
+             alertDialog.dismiss();
              break;
      }
+    }
+
+    private void opentFilterFragment(Bundle bundle) {
+        Fragment fragment = new FragmentFilterVideoList();
+        fragment.setArguments(bundle);
+        FragmentTransaction fragmentTransaction = mContext.getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_frame, fragment);
+        fragmentTransaction.commit();
+    }
+
+    private void closeSoftKeyboard() {
+        InputMethodManager imm = (InputMethodManager)mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(searchLayout.getApplicationWindowToken(), 0);
     }
 
     private void openSoftKeyboard() {
@@ -228,5 +248,15 @@ public class FragmentVideoList extends Fragment implements View.OnClickListener,
     @Override
     public void afterTextChanged(Editable s) {
 
+    }
+
+    @Override
+    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        switch(v.getId()){
+            case R.id.searchInput:
+             closeSoftKeyboard();
+                break;
+        }
+        return false;
     }
 }

@@ -17,6 +17,7 @@ import com.ngcourse.R;
 import com.ngcourse.ResponseInterfaces.ResponseCourseList;
 import com.ngcourse.Webservices.CourseListApi;
 import com.ngcourse.adapter.CourseListAdapter;
+import com.ngcourse.beans.Course;
 import com.ngcourse.utilities.FontAwesome;
 
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class FragmentCourseList extends Fragment implements NetworkCallResponse,
     private FontAwesome filterIcon;
     private FontAwesome searchIcon;
     private Toolbar toolbar;
-    private ArrayList<String> courseList;
+    private ArrayList<Course> courseList;
 
     @Nullable
     @Override
@@ -57,7 +58,7 @@ public class FragmentCourseList extends Fragment implements NetworkCallResponse,
         recyclerView.setLayoutManager(mLayoutManager);
         DividerItemDecoration itemDecoration = new DividerItemDecoration(mContext, LinearLayoutManager.VERTICAL);
         recyclerView.addItemDecoration(itemDecoration);
-      courseListAdapter = new CourseListAdapter(mContext, courseList);
+        courseListAdapter = new CourseListAdapter(mContext, courseList);
         recyclerView.setAdapter(courseListAdapter);
     }
 
@@ -71,9 +72,9 @@ public class FragmentCourseList extends Fragment implements NetworkCallResponse,
     }
 
     @Override
-    public void responseCourses(ArrayList<String> courseList) {
+    public void responseCourses(ArrayList<Course> courseList) {
         this.courseList = courseList;
-        courseListAdapter.courseList = this.courseList;
+        courseListAdapter.courseList = courseList;
         courseListAdapter.notifyDataSetChanged();
     }
 }

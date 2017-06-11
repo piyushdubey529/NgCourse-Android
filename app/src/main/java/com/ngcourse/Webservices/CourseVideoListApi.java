@@ -4,12 +4,13 @@ import android.annotation.TargetApi;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.support.v4.app.FragmentActivity;
+
 import com.ngcourse.NetworkCall.NetworkCallResponse;
 import com.ngcourse.NetworkCall.NetworkService;
 import com.ngcourse.R;
 import com.ngcourse.ResponseInterfaces.ResponseCourseList;
+import com.ngcourse.ResponseInterfaces.ResponseVideoList;
 import com.ngcourse.Settings.Config;
-import com.ngcourse.beans.Course;
 import com.ngcourse.beans.Video;
 import com.ngcourse.retrofitAdapter.ConvertInputStream;
 import com.ngcourse.retrofitAdapter.RetrofitAdapter;
@@ -18,35 +19,44 @@ import com.ngcourse.utilities.InternetConnection;
 import com.ngcourse.utilities.Logger;
 import com.ngcourse.utilities.ReferenceWrapper;
 import com.ngcourse.utilities.ToneAndVibrate;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
+
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 /**
- * Created by piyush on 9/6/17.
+ * Created by piyush on 10/6/17.
  */
 
-public class CourseListApi {
-    public static final String API_TAG = CourseListApi.class.getSimpleName();
+public class CourseVideoListApi {
+    public static final String API_TAG = CourseVideoListApi.class.getSimpleName();
     private FragmentActivity mContext;
     //private final CustomProgressDialog customProgressDialog;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     public NetworkCallResponse delegateNetworkCall = null;//Call back interface
-    public ResponseCourseList responseCourseList = null;
+    public ResponseVideoList responseVideoList = null;
+    String keyword;
+    private String limit;
+    private String skip;
 
-    public CourseListApi(FragmentActivity mContext) {
+    public CourseVideoListApi(String keyword, String skip, String limit, FragmentActivity mContext) {
+        this.keyword = keyword;
+        this.skip = skip;
+        this.limit = limit;
         this.mContext = mContext;
         sharedPreferences = ReferenceWrapper.getReferenceProvider(mContext).getSharedPreferences();
     }
 
-    public void getVideoListApi(NetworkCallResponse networkCallResponse, ResponseCourseList responseCourseList){
-        this.responseCourseList = responseCourseList;
+    public void getCourseVideoListApi(NetworkCallResponse networkCallResponse, ResponseVideoList responseVideoList){
         this.delegateNetworkCall = networkCallResponse;//Assigning call back interface
+        this.responseVideoList =responseVideoList;
         if (!InternetConnection.isInternetConnected(mContext)) {
             AppToast.showShortToast(mContext, mContext.getResources().getString(R.string.no_internet));
             ToneAndVibrate.errorVibrate(mContext);
@@ -54,7 +64,7 @@ public class CourseListApi {
             return;
         }
         NetworkService service = RetrofitAdapter.createService(NetworkService.class, Config.BASE_URL);
-        service.getCourseList(new Callback<Response>() {
+        service.getCourseVideoList(keyword, skip, limit, new Callback<Response>() {
 
             @Override
             public void success(Response body, Response obj) {
@@ -75,20 +85,24 @@ public class CourseListApi {
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     private void parseJsonResult(String result) {
-      JSONObject jsonObjectResponse = null;
+        JSONArray jsonResponseArray = null;
         try {
-            jsonObjectResponse = new JSONObject(result);
-            JSONArray jsonArray = jsonObjectResponse.getJSONArray("data");
-            ArrayList<Course> courseList = new ArrayList<>();
-            for (int i=0; i<jsonArray.length(); i++){
-                Course course = new Course();
-                course.setId(jsonArray.getJSONObject(i).getString("_id"));
-                course.setTechnology(jsonArray.getJSONObject(i).getString("technology"));
-                course.setCourseName(jsonArray.getJSONObject(i).getString("courseName"));
-                courseList.add(course);
+            JSONObject jsonObjectResponse = new JSONObject(result);
+            jsonResponseArray = jsonObjectResponse.getJSONArray("data");
+            ArrayList<Video> videoList = new ArrayList<>();
+            for(int i=0; i<jsonResponseArray.length(); i++){
+                JSONObject jsonObject = jsonResponseArray.getJSONObject(i);
+                Video video = new Video();
+                video.setId(jsonObject.getString("_id"));
+                video.setTopic(jsonObject.getString("topic"));
+                video.setVideoName(jsonObject.getString("videoName"));
+                video.setVideoUrl(jsonObject.getString("videoUrl"));
+                video.setYoutubeVideoId(jsonObject.getString("youtubeVideoId"));
+                video.setTechnology(jsonObject.getString("technology"));
+                videoList.add(video);
             }
-            responseCourseList.responseCourses(courseList);
             delegateNetworkCall.callResponse(true, API_TAG);
+            responseVideoList.responseVideos(videoList);
         } catch (JSONException e) {
             e.printStackTrace();
         }

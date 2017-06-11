@@ -4,36 +4,36 @@
 
 <item
     android:id="@+id/home_page"
-    android:icon="@drawable/about_us"
+    android:icon="@drawable/home"
     android:title="@string/home"/>
 
     <item android:id="@+id/videos"
-        android:icon="@drawable/about_us"
+        android:icon="@drawable/videos"
         android:title="@string/videos"
      />
     <item android:id="@+id/courses"
-        android:icon="@drawable/about_us"
+        android:icon="@drawable/courses"
         android:title="Courses"/>
 
         <item android:id="@+id/earning"
             android:title="Earning"
-            android:icon="@drawable/about_us"/>
+            android:icon="@drawable/earming"/>
 
         <item android:id="@+id/youtube"
             android:title="Youtube"
-            android:icon="@drawable/about_us"/>
+            android:icon="@drawable/youtube"/>
 
         <item android:id="@+id/blogs"
             android:title="Blogs"
-            android:icon="@drawable/about_us"/>
+            android:icon="@drawable/blogs"/>
 
         <item android:id="@+id/events"
             android:title="Events"
-            android:icon="@drawable/about_us"/>
+            android:icon="@drawable/event"/>
 
         <item android:id="@+id/our_services"
             android:title="Our Services"
-            android:icon="@drawable/about_us"/>
+            android:icon="@drawable/services"/>
 
         <item android:id="@+id/about_us"
             android:title="About Us"
@@ -41,7 +41,7 @@
 
         <item android:id="@+id/contact_us"
             android:title="Contact Us"
-            android:icon="@drawable/about_us"/>
+            android:icon="@drawable/contact_us"/>
 
     </group>
 </menu>

@@ -3,15 +3,14 @@
     android:orientation="vertical"
     android:id="@+id/headerlayout"
     android:layout_width="match_parent"
-    android:background="@android:color/holo_blue_dark"
-    android:layout_height="100dp">
+    android:background="@drawable/blurback"
+    android:layout_height="200dp">
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
         android:text="Header"
-        android:src="@drawable/about_us"
-        android:background="@drawable/image_boundary"/>
+        android:src="@drawable/about_us" />
 
 </LinearLayout>

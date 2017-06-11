@@ -22,7 +22,6 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:background="@android:color/black"
-            app:headerLayout="@layout/headerlayout"
             app:itemIconTint="@android:color/background_light"
             app:itemTextColor="@android:color/background_light"
             app:menu="@menu/drawermenu" />
