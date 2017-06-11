@@ -95,6 +95,7 @@
         android:layout_marginTop="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorAccent">
+        android:background="@drawable/background">
     </LinearLayout>
+    <!--android:background="@color/colorAccent"-->
 </android.support.design.widget.CoordinatorLayout>

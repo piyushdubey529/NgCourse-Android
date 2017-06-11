@@ -42,8 +42,11 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
     public void onBindViewHolder(VideoListAdapterHolder holder, final int position) {
      Video video = videoList.get(position);
         holder.videoName.setText(video.getVideoName());
-        Picasso.with(context)
+       /* Picasso.with(context)
                 .load("http://img.youtube.com/vi/"+ video.getYoutubeVideoId() + "/default.jpg")
+                .into(holder.thumbNail);*/
+        Picasso.with(context)
+                .load("http://magemello.github.io/articles/img/ng2-logo.png")
                 .into(holder.thumbNail);
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override

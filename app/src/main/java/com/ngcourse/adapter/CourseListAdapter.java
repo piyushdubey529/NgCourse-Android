@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ngcourse.Fragments.FragmentCourseVideoList;
@@ -40,7 +41,7 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Co
     @Override
     public void onBindViewHolder(CourseViewHolder holder, final int position) {
       holder.courseName.setText(courseList.get(position).getCourseName());
-        holder.rowCardView.setOnClickListener(new View.OnClickListener() {
+        holder.rowFrame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openFragmentCourseVideoList(courseList.get(position).getTechnology());
@@ -65,11 +66,11 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Co
 
     public class CourseViewHolder extends RecyclerView.ViewHolder{
         private TextView courseName;
-         private CardView rowCardView;
+         private LinearLayout rowFrame;
         public CourseViewHolder(View itemView) {
             super(itemView);
             courseName = (TextView) itemView.findViewById(R.id.courseName);
-            rowCardView = (CardView) itemView.findViewById(R.id.cardView_row);
+            rowFrame = (LinearLayout) itemView.findViewById(R.id.frame_row);
         }
     }
 }

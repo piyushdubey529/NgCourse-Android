@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.v7.widget.CardView android:layout_height="125dp"
+<android.support.v7.widget.CardView android:layout_height="110dp"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/tools"
-    app:cardBackgroundColor="@android:color/black"
+    card_view:cardUseCompatPadding="true"
     android:padding="10dp"
-    app:cardCornerRadius="4dp"
+    app:cardCornerRadius="8dp"
     android:elevation="4dp">
 <android.support.v4.widget.NestedScrollView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/background"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
@@ -25,8 +26,9 @@
 
         <ImageView
             android:id="@+id/thumbnail"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_marginTop="5dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:layout_marginLeft="10dp"/>
 
         <TextView

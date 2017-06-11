@@ -3,14 +3,17 @@
     android:orientation="vertical"
     android:id="@+id/headerlayout"
     android:layout_width="match_parent"
-    android:background="@drawable/blurback"
+    android:background="@drawable/background"
+    android:layout_marginTop="5dp"
+    android:gravity="center"
     android:layout_height="200dp">
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_width="2000dp"
+        android:layout_height="200dp"
         android:layout_gravity="center"
         android:gravity="center"
         android:text="Header"
-        android:src="@drawable/about_us" />
+       android:src="@drawable/user1" />
 
 </LinearLayout>

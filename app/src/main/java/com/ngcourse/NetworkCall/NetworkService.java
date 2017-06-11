@@ -27,6 +27,12 @@ public interface NetworkService {
                             @Query("skip") String skip,
                             Callback<Response> cb);
 
+    @GET(Config.GET_SEARCH_COURSE_LIST )
+    void getCourseSearchList(@Query("keyword") String keyword,
+                            @Query("limit") String limit,
+                            @Query("skip") String skip,
+                            Callback<Response> cb);
+
     @GET(Config.GET_FILTERED_VIDEO_LIST_URL + "/{filterkey}/{skip}/{limit}" )
     void getFilteredVideoList(@Path("filterkey") String filterKey,
                               @Path("skip") String skip,
@@ -36,8 +42,8 @@ public interface NetworkService {
     @GET(Config.GET_COURSE_LIST_URL)
     void getCourseList(Callback<Response> cb);
 
-    @GET(Config.GET_COURSE_VIDEO_LIST + "/{keyword}/{skip}/{limit}")
-    void getCourseVideoList(@Path("keyword") String keyword,
-                            @Path("skip") String skip,
-                            @Path("limit") String limit,Callback<Response> cb);
+    @GET(Config.GET_COURSE_VIDEO_LIST )
+    void getCourseVideoList(@Query("keyword") String keyword,
+                            @Query("skip") String skip,
+                            @Query("limit") String limit,Callback<Response> cb);
 }
