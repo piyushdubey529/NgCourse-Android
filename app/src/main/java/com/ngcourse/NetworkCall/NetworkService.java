@@ -42,8 +42,8 @@ public interface NetworkService {
     @GET(Config.GET_COURSE_LIST_URL)
     void getCourseList(Callback<Response> cb);
 
-    @GET(Config.GET_COURSE_VIDEO_LIST )
-    void getCourseVideoList(@Query("keyword") String keyword,
-                            @Query("skip") String skip,
-                            @Query("limit") String limit,Callback<Response> cb);
+    @GET(Config.GET_COURSE_VIDEO_LIST + "/{keyword}/{skip}/{limit}")
+    void getCourseVideoList(@Path("keyword") String keyword,
+                            @Path("skip") String skip,
+                            @Path("limit") String limit,Callback<Response> cb);
 }

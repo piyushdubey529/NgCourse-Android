@@ -16,8 +16,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.ngcourse.Fragments.FragmentCourseList;
+import com.ngcourse.Fragments.FragmentHomePage;
 import com.ngcourse.Fragments.FragmentVideoList;
 import com.ngcourse.utilities.FontAwesome;
 
@@ -66,6 +66,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void displayView(int itemId) {
         Fragment fragment = null;
         switch (itemId){
+            case R.id.home_page:
+                fragment = new FragmentHomePage();
+                break;
             case R.id.videos:
                 fragment = new FragmentVideoList();
                 break;

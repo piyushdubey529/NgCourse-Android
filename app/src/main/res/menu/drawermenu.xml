@@ -7,6 +7,11 @@
     android:icon="@drawable/home"
     android:title="@string/home"/>
 
+        <item android:id="@+id/upload"
+            android:icon="@drawable/upload"
+            android:title="@string/upload"
+            />
+
     <item android:id="@+id/videos"
         android:icon="@drawable/videos"
         android:title="@string/videos"

@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ import com.ngcourse.Fragments.FragmentCourseVideoList;
 import com.ngcourse.Fragments.FragmentPlayYoutubeVideo;
 import com.ngcourse.R;
 import com.ngcourse.beans.Course;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -41,6 +43,9 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Co
     @Override
     public void onBindViewHolder(CourseViewHolder holder, final int position) {
       holder.courseName.setText(courseList.get(position).getCourseName());
+        Picasso.with(mContext)
+                .load("http://magemello.github.io/articles/img/ng2-logo.png")
+                .into(holder.courseImage);
         holder.rowFrame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,10 +71,12 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Co
 
     public class CourseViewHolder extends RecyclerView.ViewHolder{
         private TextView courseName;
+        private ImageView courseImage;
          private LinearLayout rowFrame;
         public CourseViewHolder(View itemView) {
             super(itemView);
             courseName = (TextView) itemView.findViewById(R.id.courseName);
+            courseImage = (ImageView) itemView.findViewById(R.id.courseImage);
             rowFrame = (LinearLayout) itemView.findViewById(R.id.frame_row);
         }
     }

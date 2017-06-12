@@ -23,5 +23,6 @@
     <string name="toastConnectionFailed">Connection to server failed</string>
     <string name="forbidden">Forbidden,you do not have permission to access on server</string>
     <string name="unauthorized_user">Your login session is invalid due to one or more reasons. Please log in again in order to proceed.</string>
+    <string name="upload">Upload</string>
 
 </resources>
