@@ -9,10 +9,8 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.ngcourse.R;
 import com.ngcourse.adapter.SlidingImageAdapter;
-
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -25,7 +23,8 @@ public class FragmentHomePage extends Fragment {
     private ViewPager viewPager;
     private FragmentActivity mContext;
     private ArrayList<Integer> imageList = new ArrayList<>();
-    private static final Integer[] Images = {R.drawable.wallpaper1, R.drawable.wallpaper2};
+    private static final Integer[] Images = {R.drawable.firstimage,R.drawable.sliderimage1,
+    R.drawable.sliderimage3, R.drawable.sliderimage4, R.drawable.sliderimage5, R.drawable.sliderimage6, R.drawable.sliderimage7};
     private int NUM_PAGES = Images.length;
     private int currentPage = 0;
 
@@ -60,7 +59,7 @@ public class FragmentHomePage extends Fragment {
                     }
                 });
             }
-        },3000, 3000);
+        },1000, 3000);
     }
 
     private void setView() {
