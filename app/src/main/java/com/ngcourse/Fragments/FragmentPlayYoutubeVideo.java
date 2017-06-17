@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
@@ -21,7 +20,6 @@ import com.ngcourse.R;
 import com.ngcourse.Settings.Keys;
 import com.ngcourse.beans.Video;
 import com.ngcourse.utilities.FontAwesome;
-
 import java.util.ArrayList;
 
 /**

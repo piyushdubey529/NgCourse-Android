@@ -9,6 +9,9 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.ngcourse.R;
 import com.ngcourse.adapter.SlidingImageAdapter;
 import java.util.ArrayList;
@@ -23,10 +26,14 @@ public class FragmentHomePage extends Fragment {
     private ViewPager viewPager;
     private FragmentActivity mContext;
     private ArrayList<Integer> imageList = new ArrayList<>();
-    private static final Integer[] Images = {R.drawable.firstimage,R.drawable.sliderimage1,
-    R.drawable.sliderimage3, R.drawable.sliderimage4, R.drawable.sliderimage5, R.drawable.sliderimage6, R.drawable.sliderimage7};
+    private static final Integer[] Images = {R.drawable.firstimage,R.drawable.sliderimage1, R.drawable.sliderimage2,
+    R.drawable.sliderimage4, R.drawable.sliderimage5, R.drawable.sliderimage6, R.drawable.sliderimage7};
     private int NUM_PAGES = Images.length;
     private int currentPage = 0;
+    private ImageView imageViewMiddle;
+    private ImageView imageViewBottom;
+    private TextView textviewFirst;
+    private TextView textviewSecond;
 
     @Nullable
     @Override
@@ -67,10 +74,18 @@ public class FragmentHomePage extends Fragment {
             imageList.add(Images[i]);
         }
         viewPager.setAdapter(new SlidingImageAdapter(mContext, imageList));
+        imageViewMiddle.setScaleType(ImageView.ScaleType.FIT_XY);
+        imageViewBottom.setScaleType(ImageView.ScaleType.FIT_XY);
+        textviewFirst.setText(R.string.text_first);
+        textviewSecond.setText(R.string.text_second);
     }
 
     private void initView() {
         viewPager = (ViewPager) mContext.findViewById(R.id.viewPager);
+        imageViewMiddle = (ImageView) mContext.findViewById(R.id.imageView1);
+        imageViewBottom = (ImageView) mContext.findViewById(R.id.imageView2);
+        textviewFirst = (TextView) mContext.findViewById(R.id.textview1);
+        textviewSecond = (TextView) mContext.findViewById(R.id.textview2);
     }
 
 }
