@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.ngcourse.Fragments.FragmentCourseList;
 import com.ngcourse.Fragments.FragmentHomePage;
+import com.ngcourse.Fragments.FragmentUploadVideo;
 import com.ngcourse.Fragments.FragmentVideoList;
 import com.ngcourse.utilities.FontAwesome;
 
@@ -74,6 +75,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.courses:
                 fragment = new FragmentCourseList();
+                break;
+            case R.id.upload:
+                fragment = new FragmentUploadVideo();
                 break;
             default:
               //  fragment = new Fragmentone();

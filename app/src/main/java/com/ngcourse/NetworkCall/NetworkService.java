@@ -5,8 +5,12 @@ import retrofit.http.Headers;
 import retrofit.Callback;
 import retrofit.client.Response;
 import retrofit.http.GET;
+import retrofit.http.Multipart;
+import retrofit.http.POST;
+import retrofit.http.Part;
 import retrofit.http.Path;
 import retrofit.http.Query;
+import retrofit.mime.TypedFile;
 
 /**
  * Created by piyush on 28/5/17.
@@ -46,4 +50,9 @@ public interface NetworkService {
     void getCourseVideoList(@Path("keyword") String keyword,
                             @Path("skip") String skip,
                             @Path("limit") String limit,Callback<Response> cb);
+    @Multipart
+    @POST(Config.UPLOAD_VIDEO_URL)
+    void uploadVideo(@Part("myfile") TypedFile file,
+                     @Part("description") String description,
+                     Callback<Response> cb);
 }
