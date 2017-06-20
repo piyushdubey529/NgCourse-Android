@@ -26,4 +26,6 @@
     <string name="upload">Upload</string>
     <string name="text_first">Copyright 2017.NgCourse</string>
     <string name="text_second">Node.js is a server side JavaScript execution environment. It’s a platform built on Google Chrome’s V8 JavaScript runtime. It helps in building highly scalable and concurrent applications rapidly.</string>
+    <string name="courses">Courses</string>
+    <string name="earning">Earning</string>
 </resources>

@@ -18,10 +18,10 @@
      />
     <item android:id="@+id/courses"
         android:icon="@drawable/courses"
-        android:title="Courses"/>
+        android:title="@string/courses"/>
 
         <item android:id="@+id/earning"
-            android:title="Earning"
+            android:title="@string/earning"
             android:icon="@drawable/earming"/>
 
         <item android:id="@+id/youtube"

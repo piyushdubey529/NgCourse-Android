@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.ngcourse.Fragments.FragmentCourseList;
+import com.ngcourse.Fragments.FragmentEventList;
 import com.ngcourse.Fragments.FragmentHomePage;
 import com.ngcourse.Fragments.FragmentUploadVideo;
 import com.ngcourse.Fragments.FragmentVideoList;
@@ -78,6 +79,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.upload:
                 fragment = new FragmentUploadVideo();
+                break;
+            case R.id.events:
+                fragment = new FragmentEventList();
                 break;
             default:
               //  fragment = new Fragmentone();

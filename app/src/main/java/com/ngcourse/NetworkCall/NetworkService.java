@@ -55,4 +55,7 @@ public interface NetworkService {
     void uploadVideo(@Part("myfile") TypedFile file,
                      @Part("description") String description,
                      Callback<Response> cb);
+
+    @GET(Config.GET_EVENTS_LIST_URL)
+    void getEventList(Callback<Response> cb);
 }
