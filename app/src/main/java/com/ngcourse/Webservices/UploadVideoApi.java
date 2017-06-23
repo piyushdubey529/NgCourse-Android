@@ -53,7 +53,7 @@ public class UploadVideoApi {
         String description = "hello, this is description speaking";
 
 
-        service.uploadVideo(typedFile, description,new Callback<Response>() {
+        service.uploadVideo(typedFile, new Callback<Response>() {
             @Override
             public void success(Response body, Response obj) {
                 String result = ConvertInputStream.getFormattedResponse(body);

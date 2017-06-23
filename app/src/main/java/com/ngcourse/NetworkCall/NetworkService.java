@@ -53,7 +53,6 @@ public interface NetworkService {
     @Multipart
     @POST(Config.UPLOAD_VIDEO_URL)
     void uploadVideo(@Part("myfile") TypedFile file,
-                     @Part("description") String description,
                      Callback<Response> cb);
 
     @GET(Config.GET_EVENTS_LIST_URL)

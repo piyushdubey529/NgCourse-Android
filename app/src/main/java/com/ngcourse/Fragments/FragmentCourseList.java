@@ -18,7 +18,6 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-
 import com.ngcourse.NetworkCall.NetworkCallResponse;
 import com.ngcourse.R;
 import com.ngcourse.ResponseInterfaces.ResponseCourseList;
@@ -26,7 +25,6 @@ import com.ngcourse.Webservices.CourseListApi;
 import com.ngcourse.adapter.CourseListAdapter;
 import com.ngcourse.beans.Course;
 import com.ngcourse.utilities.FontAwesome;
-
 import java.util.ArrayList;
 
 /**

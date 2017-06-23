@@ -23,6 +23,7 @@ import com.ngcourse.NetworkCall.NetworkCallResponse;
 import com.ngcourse.R;
 import com.ngcourse.ResponseInterfaces.ResponseVideoList;
 import com.ngcourse.Webservices.VideoListApi;
+import com.ngcourse.adapter.HorizontalVideoListAdapter;
 import com.ngcourse.adapter.SlidingImageAdapter;
 import com.ngcourse.adapter.VideoListAdapter;
 import com.ngcourse.beans.Video;
@@ -51,7 +52,7 @@ public class FragmentHomePage extends Fragment implements BottomNavigationView.O
     private BottomNavigationView bottomNavigationView;
     private RecyclerView recyclerViewAngularCourse;
     private RecyclerView.LayoutManager mLayoutManager;
-    private VideoListAdapter videoListAdapter;
+    private HorizontalVideoListAdapter videoListAdapter;
     private ArrayList<Video> videoList = new ArrayList<>();
 
     @Nullable
@@ -101,11 +102,11 @@ public class FragmentHomePage extends Fragment implements BottomNavigationView.O
         VideoListApi videoListApi = new VideoListApi("0", "10", mContext);
         videoListApi.getVideoListApi(this, this);
         mLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
-        videoListAdapter = new VideoListAdapter(mContext, videoList);
+        videoListAdapter = new HorizontalVideoListAdapter(mContext, videoList);
         recyclerViewAngularCourse.setLayoutManager(mLayoutManager);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerViewAngularCourse.getContext(), LinearLayoutManager.HORIZONTAL);
         recyclerViewAngularCourse.addItemDecoration(dividerItemDecoration);
-        recyclerViewAngularCourse.setHasFixedSize(true);
+        recyclerViewAngularCourse.setHasFixedSize(false);
         recyclerViewAngularCourse.setItemAnimator(new DefaultItemAnimator());
         recyclerViewAngularCourse.setAdapter(videoListAdapter);
     }

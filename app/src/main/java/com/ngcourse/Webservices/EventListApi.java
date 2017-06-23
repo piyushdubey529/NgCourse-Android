@@ -5,7 +5,10 @@ import android.support.v4.app.FragmentActivity;
 import com.ngcourse.NetworkCall.NetworkCallResponse;
 import com.ngcourse.NetworkCall.NetworkService;
 import com.ngcourse.R;
+import com.ngcourse.ResponseInterfaces.ResponseEventList;
 import com.ngcourse.Settings.Config;
+import com.ngcourse.beans.Course;
+import com.ngcourse.beans.Event;
 import com.ngcourse.retrofitAdapter.ConvertInputStream;
 import com.ngcourse.retrofitAdapter.RetrofitAdapter;
 import com.ngcourse.utilities.AppToast;
@@ -13,6 +16,13 @@ import com.ngcourse.utilities.InternetConnection;
 import com.ngcourse.utilities.Logger;
 import com.ngcourse.utilities.ReferenceWrapper;
 import com.ngcourse.utilities.ToneAndVibrate;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -27,14 +37,16 @@ public class EventListApi {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     public NetworkCallResponse delegateNetworkCall = null;//Call back interface
+    public ResponseEventList responseEventList;
 
     public EventListApi(FragmentActivity mContext) {
         this.mContext = mContext;
         sharedPreferences = ReferenceWrapper.getReferenceProvider(mContext).getSharedPreferences();
     }
 
-    public void getEventListApi(NetworkCallResponse networkCallResponse){
+    public void getEventListApi(NetworkCallResponse networkCallResponse, ResponseEventList responseEventList){
         this.delegateNetworkCall = networkCallResponse;//Assigning call back interface
+        this.responseEventList = responseEventList;
         if (!InternetConnection.isInternetConnected(mContext)) {
             AppToast.showShortToast(mContext, mContext.getResources().getString(R.string.no_internet));
             ToneAndVibrate.errorVibrate(mContext);
@@ -62,7 +74,22 @@ public class EventListApi {
     }
 
     private void parseJsonResult(String result) {
-
+        JSONArray jsonObjectResponse = null;
+        try {
+            JSONArray jsonArray = new JSONArray(result);
+            ArrayList<Event> eventList = new ArrayList<>();
+            for (int i=0; i<jsonArray.length(); i++){
+                Event event = new Event();
+                event.setEvent_name(jsonArray.getJSONObject(i).getString("Event_name"));
+                event.set_id(jsonArray.getJSONObject(i).getString("_id"));
+                event.setEvent_happen(jsonArray.getJSONObject(i).getString("event_happen"));
+                eventList.add(event);
+            }
+            delegateNetworkCall.callResponse(true, API_TAG);
+            responseEventList.responseEvents(eventList);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
 }
