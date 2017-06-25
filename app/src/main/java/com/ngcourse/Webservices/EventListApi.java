@@ -7,7 +7,6 @@ import com.ngcourse.NetworkCall.NetworkService;
 import com.ngcourse.R;
 import com.ngcourse.ResponseInterfaces.ResponseEventList;
 import com.ngcourse.Settings.Config;
-import com.ngcourse.beans.Course;
 import com.ngcourse.beans.Event;
 import com.ngcourse.retrofitAdapter.ConvertInputStream;
 import com.ngcourse.retrofitAdapter.RetrofitAdapter;
@@ -16,13 +15,9 @@ import com.ngcourse.utilities.InternetConnection;
 import com.ngcourse.utilities.Logger;
 import com.ngcourse.utilities.ReferenceWrapper;
 import com.ngcourse.utilities.ToneAndVibrate;
-
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;

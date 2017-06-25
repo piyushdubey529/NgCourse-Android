@@ -35,7 +35,7 @@ import retrofit.client.Response;
  */
 
 public class CourseVideoListApi {
-    public static final String API_TAG = CourseVideoListApi.class.getSimpleName();
+    public   String API_TAG = CourseVideoListApi.class.getSimpleName();
     private FragmentActivity mContext;
     //private final CustomProgressDialog customProgressDialog;
     private SharedPreferences sharedPreferences;
@@ -99,6 +99,7 @@ public class CourseVideoListApi {
                 video.setVideoUrl(jsonObject.getString("videoUrl"));
                 video.setYoutubeVideoId(jsonObject.getString("youtubeVideoId"));
                 video.setTechnology(jsonObject.getString("technology"));
+                API_TAG = jsonObject.getString("technology");
                 videoList.add(video);
             }
             delegateNetworkCall.callResponse(true, API_TAG);

@@ -23,11 +23,11 @@ import java.util.ArrayList;
  * Created by piyush on 20/6/17.
  */
 
-public class HorizontalVideoListAdapter extends RecyclerView.Adapter<HorizontalVideoListAdapter.HorizontalVideoListAdapterHolder>{
+public class AngularVideoListAdapter extends RecyclerView.Adapter<AngularVideoListAdapter.HorizontalVideoListAdapterHolder>{
     private FragmentActivity context;
     public ArrayList<Video> videoList;
 
-    public HorizontalVideoListAdapter(FragmentActivity mContext, ArrayList<Video> videoList){
+    public AngularVideoListAdapter(FragmentActivity mContext, ArrayList<Video> videoList){
         this.context = mContext;
         this.videoList = videoList;
     }
@@ -42,9 +42,6 @@ public class HorizontalVideoListAdapter extends RecyclerView.Adapter<HorizontalV
     public void onBindViewHolder(HorizontalVideoListAdapterHolder holder, final int position) {
         Video video = videoList.get(position);
         holder.videoName.setText(video.getVideoName());
-       /* Picasso.with(context)
-                .load("http://img.youtube.com/vi/"+ video.getYoutubeVideoId() + "/default.jpg")
-                .into(holder.thumbNail);*/
         Picasso.with(context)
                 .load("http://magemello.github.io/articles/img/ng2-logo.png")
                 .into(holder.thumbNail);
@@ -68,7 +65,8 @@ public class HorizontalVideoListAdapter extends RecyclerView.Adapter<HorizontalV
 
     @Override
     public int getItemCount() {
-        return videoList.size();
+        if(videoList!= null) return videoList.size();
+        else return 0;
     }
 
     public class HorizontalVideoListAdapterHolder extends RecyclerView.ViewHolder{

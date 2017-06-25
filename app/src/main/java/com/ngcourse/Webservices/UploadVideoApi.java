@@ -8,6 +8,7 @@ import com.ngcourse.NetworkCall.NetworkCallResponse;
 import com.ngcourse.NetworkCall.NetworkService;
 import com.ngcourse.R;
 import com.ngcourse.Settings.Config;
+import com.ngcourse.beans.Course;
 import com.ngcourse.retrofitAdapter.ConvertInputStream;
 import com.ngcourse.retrofitAdapter.RetrofitAdapter;
 import com.ngcourse.utilities.AppToast;
@@ -15,7 +16,14 @@ import com.ngcourse.utilities.InternetConnection;
 import com.ngcourse.utilities.Logger;
 import com.ngcourse.utilities.ReferenceWrapper;
 import com.ngcourse.utilities.ToneAndVibrate;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
+import java.util.ArrayList;
+
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -33,10 +41,12 @@ public class UploadVideoApi {
     public NetworkCallResponse delegateNetworkCall = null;//Call back interface
     private String folderName = "videoFolder";
     private String fileName = "videoFile.mp4";
+    private File videoFile;
 
-    public UploadVideoApi(FragmentActivity mContext){
+    public UploadVideoApi(FragmentActivity mContext, File videoFile){
         this.mContext = mContext;
         sharedPreferences = ReferenceWrapper.getReferenceProvider(mContext).getSharedPreferences();
+        this.videoFile = videoFile;
     }
 
     public void uploadVideoApi(NetworkCallResponse networkCallResponse){
@@ -48,7 +58,7 @@ public class UploadVideoApi {
             return;
         }
         NetworkService service = RetrofitAdapter.createService(NetworkService.class, Config.BASE_URL);
-        File videoFile = getVideoFile();
+        /*File videoFile = getVideoFile();*/
         TypedFile typedFile = new TypedFile("multipart/form-data", videoFile);
         String description = "hello, this is description speaking";
 
@@ -72,7 +82,19 @@ public class UploadVideoApi {
     }
 
     private void parseJsonResult(String result) {
-
+        JSONObject jsonObjectResponse = null;
+        try {
+            jsonObjectResponse = new JSONObject(result);
+           JSONObject jsonObject =  jsonObjectResponse.getJSONObject("writeFile");
+            if(jsonObject.has("save")){
+                AppToast.showLongToast(mContext, "Video Uploaded Successfully!");
+            }
+             /*AppToast.showLongToast(mContext, jsonObject.getString("save"));*/
+            delegateNetworkCall.callResponse(true, API_TAG);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            AppToast.showLongToast(mContext, "Error Occurred while saving");
+        }
     }
 
 

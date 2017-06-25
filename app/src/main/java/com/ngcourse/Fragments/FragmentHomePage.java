@@ -22,10 +22,14 @@ import android.widget.TextView;
 import com.ngcourse.NetworkCall.NetworkCallResponse;
 import com.ngcourse.R;
 import com.ngcourse.ResponseInterfaces.ResponseVideoList;
-import com.ngcourse.Webservices.VideoListApi;
-import com.ngcourse.adapter.HorizontalVideoListAdapter;
+import com.ngcourse.Webservices.CourseVideoListApi;
+import com.ngcourse.adapter.AndroidVideoListAdapter;
+import com.ngcourse.adapter.Angular2VideoListAdapter;
+import com.ngcourse.adapter.AngularVideoListAdapter;
+import com.ngcourse.adapter.IonicVideoListAdapter;
+import com.ngcourse.adapter.MongodbVideoListAdapter;
+import com.ngcourse.adapter.NodeJsVideoListAdapter;
 import com.ngcourse.adapter.SlidingImageAdapter;
-import com.ngcourse.adapter.VideoListAdapter;
 import com.ngcourse.beans.Video;
 import java.util.ArrayList;
 import java.util.Timer;
@@ -51,8 +55,18 @@ public class FragmentHomePage extends Fragment implements BottomNavigationView.O
     private TextView textviewSecond;
     private BottomNavigationView bottomNavigationView;
     private RecyclerView recyclerViewAngularCourse;
+    private RecyclerView recyclerViewMongodbCourse;
+    private RecyclerView recyclerViewAngular2Course;
+    private RecyclerView recyclerViewAndroidCourse;
+    private RecyclerView recyclerViewNodeJsCourse;
+    private RecyclerView recyclerViewIonicCourse;
     private RecyclerView.LayoutManager mLayoutManager;
-    private HorizontalVideoListAdapter videoListAdapter;
+    private AngularVideoListAdapter angularVideoListAdapter;
+    private MongodbVideoListAdapter mongodbVideoListAdapter;
+    private Angular2VideoListAdapter angular2VideoListAdapter;
+    private AndroidVideoListAdapter androidVideoListAdapter;
+    private NodeJsVideoListAdapter nodeJsVideoListAdapter;
+    private IonicVideoListAdapter ionicVideoListAdapter;
     private ArrayList<Video> videoList = new ArrayList<>();
 
     @Nullable
@@ -99,16 +113,39 @@ public class FragmentHomePage extends Fragment implements BottomNavigationView.O
         textviewFirst.setText(R.string.text_first);
         textviewSecond.setText(R.string.text_second);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
-        VideoListApi videoListApi = new VideoListApi("0", "10", mContext);
-        videoListApi.getVideoListApi(this, this);
+        setCourseView("angular", recyclerViewAngularCourse);
+        setCourseView("MongoDB", recyclerViewMongodbCourse);
+        setCourseView("angular2",recyclerViewAngular2Course);
+    }
+
+    private void setCourseView(String keyword, RecyclerView recyclerView) {
+        CourseVideoListApi courseVideoListApi = new CourseVideoListApi(keyword, "0", "10", mContext);
+        courseVideoListApi.getCourseVideoListApi(this, this);
         mLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
-        videoListAdapter = new HorizontalVideoListAdapter(mContext, videoList);
-        recyclerViewAngularCourse.setLayoutManager(mLayoutManager);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerViewAngularCourse.getContext(), LinearLayoutManager.HORIZONTAL);
-        recyclerViewAngularCourse.addItemDecoration(dividerItemDecoration);
-        recyclerViewAngularCourse.setHasFixedSize(false);
-        recyclerViewAngularCourse.setItemAnimator(new DefaultItemAnimator());
-        recyclerViewAngularCourse.setAdapter(videoListAdapter);
+        recyclerView.setLayoutManager(mLayoutManager);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), LinearLayoutManager.HORIZONTAL);
+        recyclerView.addItemDecoration(dividerItemDecoration);
+        recyclerView.setHasFixedSize(false);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        if(keyword.equals("angular")){
+            angularVideoListAdapter = new AngularVideoListAdapter(mContext, videoList);
+            recyclerView.setAdapter(angularVideoListAdapter);
+        }else if(keyword.equals("MongoDB")){
+            mongodbVideoListAdapter = new MongodbVideoListAdapter(mContext, videoList);
+            recyclerView.setAdapter(mongodbVideoListAdapter);
+        }else if(keyword.equals("angular2")){
+            angular2VideoListAdapter = new Angular2VideoListAdapter(mContext, videoList);
+            recyclerView.setAdapter(angular2VideoListAdapter);
+        }else if(keyword.equals("android")){
+            androidVideoListAdapter = new AndroidVideoListAdapter(mContext, videoList);
+            recyclerView.setAdapter(androidVideoListAdapter);
+        }else if(keyword.equals("nodejs")){
+            nodeJsVideoListAdapter = new NodeJsVideoListAdapter(mContext, videoList);
+            recyclerView.setAdapter(nodeJsVideoListAdapter);
+        }else if(keyword.equals("ionic")){
+            ionicVideoListAdapter = new IonicVideoListAdapter(mContext, videoList);
+            recyclerView.setAdapter(ionicVideoListAdapter);
+        }
     }
 
     private void initView() {
@@ -119,6 +156,11 @@ public class FragmentHomePage extends Fragment implements BottomNavigationView.O
         textviewSecond = (TextView) mContext.findViewById(R.id.textview2);
         bottomNavigationView = (BottomNavigationView) mContext.findViewById(R.id.bottomnavigation);
         recyclerViewAngularCourse = (RecyclerView) mContext.findViewById(R.id.angularcourserecyclerview);
+        recyclerViewMongodbCourse = (RecyclerView) mContext.findViewById(R.id.mongodbcourserecyclerview);
+        recyclerViewAngular2Course = (RecyclerView) mContext.findViewById(R.id.angular2courserecyclerview);
+        recyclerViewAndroidCourse = (RecyclerView) mContext.findViewById(R.id.androidcourserecyclerview);
+        recyclerViewNodeJsCourse = (RecyclerView) mContext.findViewById(R.id.nodejscourserecyclerview);
+        recyclerViewIonicCourse = (RecyclerView) mContext.findViewById(R.id.ioniccourserecyclerview);
     }
 
     @Override
@@ -145,21 +187,28 @@ public class FragmentHomePage extends Fragment implements BottomNavigationView.O
 
     @Override
     public void callResponse(Boolean response, String API_TAG) {
-        this.API_TAG = API_TAG;
+      this.API_TAG = API_TAG;
     }
 
     @Override
     public void responseVideos(ArrayList<Video> videoList) {
-        if(this.API_TAG.equals("VideoListApi")){
-            for(int i =0; i<videoList.size(); i++){
-                Video video = videoList.get(i);
-                if(!this.videoList.contains(video)) this.videoList.add(video);
-            }
-            videoListAdapter.videoList = this.videoList;
-        }else{
-            this.videoList = videoList;
-            videoListAdapter.videoList = this.videoList;
+        if(this.API_TAG.equals("angular")){
+            angularVideoListAdapter.videoList = videoList;
+            angularVideoListAdapter.notifyDataSetChanged();
+        }else if(this.API_TAG.equals("mongodb")){
+            mongodbVideoListAdapter.videoList = videoList;
+            mongodbVideoListAdapter.notifyDataSetChanged();
+        }else if(this.API_TAG.equals("angular2")){
+            angular2VideoListAdapter.videoList = videoList;
+            angular2VideoListAdapter.notifyDataSetChanged();
+        }else if(this.API_TAG.equals("android")){
+            androidVideoListAdapter.videoList = videoList;
+            androidVideoListAdapter.notifyDataSetChanged();
+        }else if(this.API_TAG.equals("nodejs")){
+            nodeJsVideoListAdapter.videoList = videoList;
+            nodeJsVideoListAdapter.notifyDataSetChanged();
+        }else if(this.API_TAG.equals("ionic")){
+
         }
-        videoListAdapter.notifyDataSetChanged();
     }
 }

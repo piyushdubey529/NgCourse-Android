@@ -1,25 +1,36 @@
 package com.ngcourse.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ngcourse.NetworkCall.NetworkCallResponse;
 import com.ngcourse.R;
 import com.ngcourse.Webservices.UploadVideoApi;
+
+import java.io.File;
 
 /**
  * Created by piyush on 17/6/17.
  */
 
 public class FragmentUploadVideo extends Fragment implements View.OnClickListener, NetworkCallResponse{
-    private ImageView upload;
+    private Button upload;
+    private ImageView browse;
+    private TextView selected;
     private FragmentActivity mContext;
+    private int FILE_REQUEST_CODE = 101;
+    private File selectedFile;
 
     @Nullable
     @Override
@@ -36,20 +47,42 @@ public class FragmentUploadVideo extends Fragment implements View.OnClickListene
     }
 
     private void setListener() {
+        browse.setOnClickListener(this);
         upload.setOnClickListener(this);
     }
 
     private void initView() {
-        upload = (ImageView) mContext.findViewById(R.id.upload);
+        browse = (ImageView) mContext.findViewById(R.id.browse);
+        selected = (TextView) mContext.findViewById(R.id.selected);
+        upload = (Button) mContext.findViewById(R.id.upload);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.browse:
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("*/*");
+                startActivityForResult(intent, FILE_REQUEST_CODE);
+                break;
+
             case R.id.upload:
-                UploadVideoApi uploadVideoApi = new UploadVideoApi(mContext);
+                UploadVideoApi uploadVideoApi = new UploadVideoApi(mContext, selectedFile);
                 uploadVideoApi.uploadVideoApi(this);
                 break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == FILE_REQUEST_CODE){
+            String absolutePath = Environment.getExternalStorageDirectory().getAbsolutePath();
+            String fileName = data.getData().getPath();
+            String[] paths = fileName.split(":");
+            fileName = absolutePath + "/" + paths[1];
+            selectedFile = new File(fileName);
+            selected.setText("Selected: "+fileName);
+            Toast.makeText(mContext, fileName, Toast.LENGTH_SHORT).show();
         }
     }
 

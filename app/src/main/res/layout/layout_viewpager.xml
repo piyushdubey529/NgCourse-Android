@@ -39,6 +39,31 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/mongodbcourserecyclerview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/angular2courserecyclerview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/androidcourserecyclerview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/nodejscourserecyclerview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/ioniccourserecyclerview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
                 <ImageView
                     android:id="@+id/imageView2"
                     android:layout_width="match_parent"
@@ -78,6 +103,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
+        android:background="@android:color/black"
         android:layout_weight="1">
 
         <android.support.design.widget.BottomNavigationView
