@@ -77,12 +77,14 @@ public class FragmentUploadVideo extends Fragment implements View.OnClickListene
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == FILE_REQUEST_CODE){
             String absolutePath = Environment.getExternalStorageDirectory().getAbsolutePath();
-            String fileName = data.getData().getPath();
-            String[] paths = fileName.split(":");
-            fileName = absolutePath + "/" + paths[1];
-            selectedFile = new File(fileName);
-            selected.setText("Selected: "+fileName);
-            Toast.makeText(mContext, fileName, Toast.LENGTH_SHORT).show();
+            if(data != null){
+                String fileName = data.getData().getPath();
+                String[] paths = fileName.split(":");
+                fileName = absolutePath + "/" + paths[1];
+                selectedFile = new File(fileName);
+                selected.setText("Selected: "+fileName);
+                Toast.makeText(mContext, fileName, Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

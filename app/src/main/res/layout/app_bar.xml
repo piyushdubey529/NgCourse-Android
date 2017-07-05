@@ -41,6 +41,7 @@
             android:textColor="@android:color/background_light"
             />
 
+
         <com.ngcourse.utilities.FontAwesome
             android:id="@+id/filter_icon"
             android:layout_width="30dp"

@@ -22,6 +22,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -34,6 +35,7 @@ import com.ngcourse.Webservices.SearchVideoListApi;
 import com.ngcourse.Webservices.VideoListApi;
 import com.ngcourse.adapter.VideoListAdapter;
 import com.ngcourse.beans.Video;
+import com.ngcourse.utilities.AppProgress;
 import com.ngcourse.utilities.FontAwesome;
 
 import java.util.ArrayList;
@@ -62,6 +64,7 @@ public class FragmentVideoList extends Fragment implements View.OnClickListener,
     private Button applyFilter;
     private RadioGroup radioGroup;
     private View dialogView;
+    private ProgressBar progressBar;
 
 
 
@@ -109,6 +112,7 @@ public class FragmentVideoList extends Fragment implements View.OnClickListener,
     }
 
     private void setData() {
+        AppProgress.showProgress(mContext, progressBar);
         VideoListApi videoListApi = new VideoListApi("0", "10", mContext);
         videoListApi.getVideoListApi(this, this);
         mLayoutManager = new LinearLayoutManager(mContext);
@@ -129,6 +133,7 @@ public class FragmentVideoList extends Fragment implements View.OnClickListener,
         searchLayout = (LinearLayout) mContext.findViewById(R.id.searchLayout);
         searchInput = (EditText) mContext.findViewById(R.id.searchInput);
         backButton = (FontAwesome) mContext.findViewById(R.id.backButton);
+        progressBar = (ProgressBar) mContext.findViewById(R.id.progress_bar);
         searchIcon.setVisibility(View.VISIBLE);
         filterIcon.setVisibility(View.VISIBLE);
     }
@@ -206,6 +211,7 @@ public class FragmentVideoList extends Fragment implements View.OnClickListener,
     @Override
     public void callResponse(Boolean response, String API_TAG) {
      this.API_TAG = API_TAG;
+        AppProgress.hideProgress(mContext, progressBar);
     }
 
     @Override
