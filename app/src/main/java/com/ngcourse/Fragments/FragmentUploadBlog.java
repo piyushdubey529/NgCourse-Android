@@ -14,19 +14,17 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.ngcourse.NetworkCall.NetworkCallResponse;
 import com.ngcourse.R;
-import com.ngcourse.Webservices.UploadVideoApi;
 import com.ngcourse.utilities.AppProgress;
-
 import java.io.File;
 
 /**
- * Created by piyush on 17/6/17.
+ * Created by piyush on 6/7/17.
  */
 
-public class FragmentUploadVideo extends Fragment implements View.OnClickListener, NetworkCallResponse{
+public class FragmentUploadBlog extends Fragment implements View.OnClickListener, NetworkCallResponse{
+
     private Button upload;
     private ImageView browse;
     private TextView selected;
@@ -71,8 +69,8 @@ public class FragmentUploadVideo extends Fragment implements View.OnClickListene
                 break;
 
             case R.id.upload:
-                UploadVideoApi uploadVideoApi = new UploadVideoApi(mContext, selectedFile);
-                uploadVideoApi.uploadVideoApi(this);
+               /* UploadVideoApi uploadVideoApi = new UploadVideoApi(mContext, selectedFile);
+                uploadVideoApi.uploadVideoApi(this);*/
                 break;
         }
     }

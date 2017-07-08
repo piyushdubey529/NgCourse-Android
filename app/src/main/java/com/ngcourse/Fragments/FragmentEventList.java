@@ -12,12 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+
 import com.ngcourse.NetworkCall.NetworkCallResponse;
 import com.ngcourse.R;
 import com.ngcourse.ResponseInterfaces.ResponseEventList;
 import com.ngcourse.Webservices.EventListApi;
 import com.ngcourse.adapter.EventListAdapter;
 import com.ngcourse.beans.Event;
+import com.ngcourse.utilities.AppProgress;
 import com.ngcourse.utilities.FontAwesome;
 import java.util.ArrayList;
 
@@ -37,7 +40,7 @@ public class FragmentEventList extends Fragment implements NetworkCallResponse,R
     private EditText searchInput;
     private FontAwesome backButton;
     private ArrayList<Event> eventList;
-
+    private ProgressBar progressBar;
 
     @Nullable
     @Override
@@ -54,6 +57,7 @@ public class FragmentEventList extends Fragment implements NetworkCallResponse,R
     }
 
     private void setView() {
+        AppProgress.showProgress(mContext, progressBar);
         EventListApi eventListApi = new EventListApi(mContext);
         eventListApi.getEventListApi(this,this);
         mLayoutManager = new LinearLayoutManager(mContext);
@@ -66,11 +70,12 @@ public class FragmentEventList extends Fragment implements NetworkCallResponse,R
 
     private void initView() {
         recyclerView = (RecyclerView) mContext.findViewById(R.id.videolist_recyclerview);
+        progressBar = (ProgressBar) mContext.findViewById(R.id.progress_bar);
     }
 
     @Override
     public void callResponse(Boolean response, String API_TAG) {
-
+     AppProgress.hideProgress(mContext, progressBar);
     }
 
     @Override

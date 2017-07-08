@@ -27,4 +27,12 @@
             app:menu="@menu/drawermenu" />
 
     </android.support.v4.widget.DrawerLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:indeterminateTint="@android:color/background_light"
+        android:visibility="gone"/>
 </RelativeLayout>

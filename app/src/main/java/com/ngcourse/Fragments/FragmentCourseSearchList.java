@@ -13,12 +13,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+
 import com.ngcourse.NetworkCall.NetworkCallResponse;
 import com.ngcourse.R;
 import com.ngcourse.ResponseInterfaces.ResponseCourseList;
 import com.ngcourse.Webservices.SearchCourseListApi;
 import com.ngcourse.adapter.CourseListAdapter;
 import com.ngcourse.beans.Course;
+import com.ngcourse.utilities.AppProgress;
 import com.ngcourse.utilities.FontAwesome;
 import java.util.ArrayList;
 
@@ -39,6 +42,7 @@ public class FragmentCourseSearchList extends Fragment implements View.OnClickLi
     private FontAwesome backButton;
     private Toolbar toolbar;
     private ArrayList<Course> courseList;
+    private ProgressBar progressBar;
 
 
     @Nullable
@@ -64,6 +68,7 @@ public class FragmentCourseSearchList extends Fragment implements View.OnClickLi
     private void setView() {
         Bundle bundle = getArguments();
         String keyword = bundle.getString("keyword");
+        AppProgress.showProgress(mContext, progressBar);
         SearchCourseListApi searchCourseListApi = new SearchCourseListApi(keyword, "10", "0", mContext);
         searchCourseListApi.getSearchCourseListApi(this,this);
         mLayoutManager = new LinearLayoutManager(mContext);
@@ -82,6 +87,7 @@ public class FragmentCourseSearchList extends Fragment implements View.OnClickLi
         searchInput = (EditText) mContext.findViewById(R.id.searchInput);
         backButton = (FontAwesome) mContext.findViewById(R.id.backButton);
         searchIcon.setVisibility(View.VISIBLE);
+        progressBar = (ProgressBar) mContext.findViewById(R.id.progress_bar);
     }
 
 
@@ -92,7 +98,7 @@ public class FragmentCourseSearchList extends Fragment implements View.OnClickLi
 
     @Override
     public void callResponse(Boolean response, String API_TAG) {
-
+      AppProgress.hideProgress(mContext, progressBar);
     }
 
     @Override

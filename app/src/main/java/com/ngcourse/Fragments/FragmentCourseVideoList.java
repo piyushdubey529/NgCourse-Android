@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+
 import com.ngcourse.NetworkCall.NetworkCallResponse;
 import com.ngcourse.R;
 import com.ngcourse.ResponseInterfaces.ResponseVideoList;
@@ -22,6 +24,7 @@ import com.ngcourse.adapter.CourseListAdapter;
 import com.ngcourse.adapter.VideoListAdapter;
 import com.ngcourse.beans.Course;
 import com.ngcourse.beans.Video;
+import com.ngcourse.utilities.AppProgress;
 import com.ngcourse.utilities.FontAwesome;
 import java.util.ArrayList;
 
@@ -43,6 +46,7 @@ public class FragmentCourseVideoList extends Fragment implements NetworkCallResp
     private LinearLayout searchLayout;
     private EditText searchInput;
     private FontAwesome backButton;
+    private ProgressBar progressBar;
 
     @Nullable
     @Override
@@ -68,6 +72,7 @@ public class FragmentCourseVideoList extends Fragment implements NetworkCallResp
     private void setData() {
         Bundle bundle = getArguments();
         String keyword = bundle.getString("keyword");
+        AppProgress.showProgress(mContext, progressBar);
         CourseVideoListApi courseVideoListApi = new CourseVideoListApi(keyword, "0", "10", mContext);
         courseVideoListApi.getCourseVideoListApi(this, this);
         mLayoutManager = new LinearLayoutManager(mContext);
@@ -90,11 +95,12 @@ public class FragmentCourseVideoList extends Fragment implements NetworkCallResp
         backButton = (FontAwesome) mContext.findViewById(R.id.backButton);
         searchIcon.setVisibility(View.VISIBLE);
         filterIcon.setVisibility(View.VISIBLE);
+        progressBar = (ProgressBar) mContext.findViewById(R.id.progress_bar);
     }
 
     @Override
     public void callResponse(Boolean response, String API_TAG) {
-
+      AppProgress.hideProgress(mContext, progressBar);
     }
 
 

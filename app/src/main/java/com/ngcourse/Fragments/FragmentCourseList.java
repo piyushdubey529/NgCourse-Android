@@ -18,12 +18,15 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+
 import com.ngcourse.NetworkCall.NetworkCallResponse;
 import com.ngcourse.R;
 import com.ngcourse.ResponseInterfaces.ResponseCourseList;
 import com.ngcourse.Webservices.CourseListApi;
 import com.ngcourse.adapter.CourseListAdapter;
 import com.ngcourse.beans.Course;
+import com.ngcourse.utilities.AppProgress;
 import com.ngcourse.utilities.FontAwesome;
 import java.util.ArrayList;
 
@@ -45,6 +48,7 @@ public class FragmentCourseList extends Fragment implements NetworkCallResponse,
     private FontAwesome backButton;
     private Toolbar toolbar;
     private ArrayList<Course> courseList;
+    private ProgressBar progressBar;
 
     @Nullable
     @Override
@@ -68,6 +72,7 @@ public class FragmentCourseList extends Fragment implements NetworkCallResponse,
     }
 
     private void setView() {
+        AppProgress.showProgress(mContext, progressBar);
         CourseListApi courseListApi = new CourseListApi(mContext);
         courseListApi.getVideoListApi(this,this);
         mLayoutManager = new LinearLayoutManager(mContext);
@@ -86,12 +91,13 @@ public class FragmentCourseList extends Fragment implements NetworkCallResponse,
         searchInput = (EditText) mContext.findViewById(R.id.searchInput);
         backButton = (FontAwesome) mContext.findViewById(R.id.backButton);
         searchIcon.setVisibility(View.VISIBLE);
+        progressBar = (ProgressBar) mContext.findViewById(R.id.progress_bar);
     }
 
 
     @Override
     public void callResponse(Boolean response, String API_TAG) {
-
+      AppProgress.hideProgress(mContext, progressBar);
     }
 
     @Override

@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.ngcourse.NetworkCall.NetworkCallResponse;
 import com.ngcourse.R;
@@ -31,6 +32,8 @@ import com.ngcourse.adapter.MongodbVideoListAdapter;
 import com.ngcourse.adapter.NodeJsVideoListAdapter;
 import com.ngcourse.adapter.SlidingImageAdapter;
 import com.ngcourse.beans.Video;
+import com.ngcourse.utilities.AppProgress;
+
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -68,6 +71,7 @@ public class FragmentHomePage extends Fragment implements BottomNavigationView.O
     private NodeJsVideoListAdapter nodeJsVideoListAdapter;
     private IonicVideoListAdapter ionicVideoListAdapter;
     private ArrayList<Video> videoList = new ArrayList<>();
+    private ProgressBar progressBar;
 
     @Nullable
     @Override
@@ -119,6 +123,7 @@ public class FragmentHomePage extends Fragment implements BottomNavigationView.O
     }
 
     private void setCourseView(String keyword, RecyclerView recyclerView) {
+        AppProgress.showProgress(mContext, progressBar);
         CourseVideoListApi courseVideoListApi = new CourseVideoListApi(keyword, "0", "10", mContext);
         courseVideoListApi.getCourseVideoListApi(this, this);
         mLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
@@ -161,6 +166,7 @@ public class FragmentHomePage extends Fragment implements BottomNavigationView.O
         recyclerViewAndroidCourse = (RecyclerView) mContext.findViewById(R.id.androidcourserecyclerview);
         recyclerViewNodeJsCourse = (RecyclerView) mContext.findViewById(R.id.nodejscourserecyclerview);
         recyclerViewIonicCourse = (RecyclerView) mContext.findViewById(R.id.ioniccourserecyclerview);
+        progressBar = (ProgressBar) mContext.findViewById(R.id.progress_bar);
     }
 
     @Override
@@ -188,6 +194,7 @@ public class FragmentHomePage extends Fragment implements BottomNavigationView.O
     @Override
     public void callResponse(Boolean response, String API_TAG) {
       this.API_TAG = API_TAG;
+        AppProgress.hideProgress(mContext, progressBar);
     }
 
     @Override
