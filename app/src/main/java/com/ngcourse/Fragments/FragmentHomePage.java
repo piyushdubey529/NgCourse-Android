@@ -27,13 +27,14 @@ import com.ngcourse.Webservices.CourseVideoListApi;
 import com.ngcourse.adapter.AndroidVideoListAdapter;
 import com.ngcourse.adapter.Angular2VideoListAdapter;
 import com.ngcourse.adapter.AngularVideoListAdapter;
+import com.ngcourse.adapter.HorizontalListAdapter;
 import com.ngcourse.adapter.IonicVideoListAdapter;
 import com.ngcourse.adapter.MongodbVideoListAdapter;
 import com.ngcourse.adapter.NodeJsVideoListAdapter;
 import com.ngcourse.adapter.SlidingImageAdapter;
+import com.ngcourse.beans.HorizantalView;
 import com.ngcourse.beans.Video;
 import com.ngcourse.utilities.AppProgress;
-
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -63,14 +64,17 @@ public class FragmentHomePage extends Fragment implements BottomNavigationView.O
     private RecyclerView recyclerViewAndroidCourse;
     private RecyclerView recyclerViewNodeJsCourse;
     private RecyclerView recyclerViewIonicCourse;
+    private RecyclerView recyclerViewHorizontal;
     private RecyclerView.LayoutManager mLayoutManager;
     private AngularVideoListAdapter angularVideoListAdapter;
     private MongodbVideoListAdapter mongodbVideoListAdapter;
     private Angular2VideoListAdapter angular2VideoListAdapter;
     private AndroidVideoListAdapter androidVideoListAdapter;
     private NodeJsVideoListAdapter nodeJsVideoListAdapter;
+    private HorizontalListAdapter horizontalListAdapter;
     private IonicVideoListAdapter ionicVideoListAdapter;
     private ArrayList<Video> videoList = new ArrayList<>();
+    private ArrayList<HorizantalView> horizontalList = new ArrayList<>();
     private ProgressBar progressBar;
 
     @Nullable
@@ -117,9 +121,37 @@ public class FragmentHomePage extends Fragment implements BottomNavigationView.O
         textviewFirst.setText(R.string.text_first);
         textviewSecond.setText(R.string.text_second);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
+        setHorizontalView();
         setCourseView("angular", recyclerViewAngularCourse);
         setCourseView("MongoDB", recyclerViewMongodbCourse);
         setCourseView("angular2",recyclerViewAngular2Course);
+    }
+
+    private void setHorizontalView() {
+        mLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
+        recyclerViewHorizontal.setLayoutManager(mLayoutManager);
+      /*  DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerViewHorizontal.getContext(), LinearLayoutManager.HORIZONTAL);
+        recyclerViewHorizontal.addItemDecoration(dividerItemDecoration);
+        recyclerViewHorizontal.setHasFixedSize(false);
+        recyclerViewHorizontal.setItemAnimator(new DefaultItemAnimator());*/
+        prepareHorizontalList();
+        horizontalListAdapter = new HorizontalListAdapter(mContext, horizontalList);
+        recyclerViewHorizontal.setAdapter(horizontalListAdapter);
+    }
+
+    private void prepareHorizontalList() {
+        HorizantalView horizantalView = new HorizantalView(R.drawable.videos, "Videos");
+        HorizantalView horizantalView1 = new HorizantalView(R.drawable.courses, "Courses");
+        HorizantalView horizantalView2 = new HorizantalView(R.drawable.event, "Events");
+        HorizantalView horizantalView3 = new HorizantalView(R.drawable.blogs, "Blogs");
+        HorizantalView horizantalView4 = new HorizantalView(R.drawable.earming, "Earning");
+        HorizantalView horizantalView5 = new HorizantalView(R.drawable.upload, "Upload");
+        horizontalList.add(horizantalView);
+        horizontalList.add(horizantalView1);
+        horizontalList.add(horizantalView2);
+        horizontalList.add(horizantalView3);
+        horizontalList.add(horizantalView4);
+        horizontalList.add(horizantalView5);
     }
 
     private void setCourseView(String keyword, RecyclerView recyclerView) {
@@ -166,6 +198,7 @@ public class FragmentHomePage extends Fragment implements BottomNavigationView.O
         recyclerViewAndroidCourse = (RecyclerView) mContext.findViewById(R.id.androidcourserecyclerview);
         recyclerViewNodeJsCourse = (RecyclerView) mContext.findViewById(R.id.nodejscourserecyclerview);
         recyclerViewIonicCourse = (RecyclerView) mContext.findViewById(R.id.ioniccourserecyclerview);
+        recyclerViewHorizontal = (RecyclerView) mContext.findViewById(R.id.horizontalrecyclerview);
         progressBar = (ProgressBar) mContext.findViewById(R.id.progress_bar);
     }
 
