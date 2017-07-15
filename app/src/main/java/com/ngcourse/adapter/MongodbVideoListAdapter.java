@@ -34,7 +34,7 @@ public class MongodbVideoListAdapter extends RecyclerView.Adapter<MongodbVideoLi
 
     @Override
     public MongodbVideoListAdapterHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_horizontal_videolist, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_home_video_list, parent, false);
         return new MongodbVideoListAdapterHolder(view);
     }
 

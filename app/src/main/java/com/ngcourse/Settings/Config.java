@@ -5,7 +5,7 @@ package com.ngcourse.Settings;
  */
 
 public class Config {
-    public static final String BASE_URL = "http://0fa5bbf1.ngrok.io";
+    public static final String BASE_URL = "http://18281495.ngrok.io";
     public static final String GET_VIDEO_LIST_URL = "/api/v1/userapi/getVideosList";
     public static final String GET_SEARCHED_VIDEO_LIST_URL = "/api/v1/userapi/searchVideos" ;
     public static final String GET_FILTERED_VIDEO_LIST_URL = "/api/v1/userapi/FilterByDropDown";

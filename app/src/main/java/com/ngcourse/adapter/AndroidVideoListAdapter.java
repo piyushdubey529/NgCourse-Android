@@ -32,7 +32,7 @@ public class AndroidVideoListAdapter extends RecyclerView.Adapter<AndroidVideoLi
 
     @Override
     public AndroidVideoListAdapterHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_horizontal_videolist, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_home_video_list, parent, false);
         return new AndroidVideoListAdapterHolder(view);
     }
 

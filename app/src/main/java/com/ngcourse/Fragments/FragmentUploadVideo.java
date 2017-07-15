@@ -19,6 +19,7 @@ import com.ngcourse.NetworkCall.NetworkCallResponse;
 import com.ngcourse.R;
 import com.ngcourse.Webservices.UploadVideoApi;
 import com.ngcourse.utilities.AppProgress;
+import com.ngcourse.utilities.AppToast;
 
 import java.io.File;
 
@@ -71,8 +72,12 @@ public class FragmentUploadVideo extends Fragment implements View.OnClickListene
                 break;
 
             case R.id.upload:
-                UploadVideoApi uploadVideoApi = new UploadVideoApi(mContext, selectedFile);
-                uploadVideoApi.uploadVideoApi(this);
+                if(selectedFile != null){
+                    UploadVideoApi uploadVideoApi = new UploadVideoApi(mContext, selectedFile);
+                    uploadVideoApi.uploadVideoApi(this);
+                }else{
+                    AppToast.showLongToast(mContext, "Please Select a file to upload");
+                }
                 break;
         }
     }

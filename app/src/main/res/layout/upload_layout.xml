@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="50dp"
+    android:layout_marginLeft="80dp"
     android:layout_marginTop="50dp">
 
     <Button
@@ -12,7 +12,7 @@
         android:layout_height="200dp"
         android:text="@string/upload_video"
         android:textColor="@android:color/background_light"
-        android:background="@color/cardview_dark_background"/>
+        android:background="@color/colorAccent"/>
 
     <Button
         android:id="@+id/uploadBlog"
@@ -21,7 +21,7 @@
         android:layout_marginTop="50dp"
         android:text="@string/upload_blog"
         android:textColor="@android:color/background_light"
-        android:background="@color/cardview_dark_background"
+        android:background="@color/colorAccent"
         />
 
 </LinearLayout>

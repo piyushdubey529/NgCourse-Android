@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.ngcourse.Fragments.FragmentCourseList;
 import com.ngcourse.Fragments.FragmentEventList;
 import com.ngcourse.Fragments.FragmentHomePage;
+import com.ngcourse.Fragments.FragmentUpload;
 import com.ngcourse.Fragments.FragmentUploadVideo;
 import com.ngcourse.Fragments.FragmentVideoList;
 import com.ngcourse.utilities.FontAwesome;

@@ -32,7 +32,7 @@ public class Angular2VideoListAdapter extends RecyclerView.Adapter<Angular2Video
 
     @Override
     public Angular2VideoListAdapterHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_horizontal_videolist, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_home_video_list, parent, false);
         return new Angular2VideoListAdapterHolder(view);
     }
 
