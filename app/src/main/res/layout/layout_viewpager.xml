@@ -16,7 +16,7 @@
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/background_light"
+            android:background="@android:color/black"
             android:gravity="top"
             android:orientation="vertical">
 
@@ -39,15 +39,19 @@
                     android:layout_height="wrap_content"
                     android:background="@color/colorAccent"/>
 
-                <include layout="@layout/layout_home_border"/>
+                <include
+                    android:id="@+id/border_angularcourse"
+                    layout="@layout/layout_home_border" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/angularcourserecyclerview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorAccent"/>
+                    android:background="@color/colorAccent" />
 
-                <include layout="@layout/layout_home_border"/>
+                <include
+                    android:id="@+id/border_mongodbcourse"
+                    layout="@layout/layout_home_border"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/mongodbcourserecyclerview"
@@ -98,7 +102,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="10dp"
-                    android:textColor="@color/cardview_light_background" />
+                    android:textColor="@color/cardview_light_background"
+                    android:visibility="gone"/>
 
                 <ImageView
                     android:id="@+id/imageView1"
@@ -114,7 +119,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
-                    android:textColor="@android:color/black"
+                    android:textColor="@android:color/background_light"
                     android:textStyle="bold" />
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>

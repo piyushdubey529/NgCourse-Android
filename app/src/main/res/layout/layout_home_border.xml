@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:id="@+id/frame_border"
     android:layout_height="wrap_content"
     android:layout_width="wrap_content"
     android:background="@android:color/black"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:visibility="gone">
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="40dp"
+    android:layout_height="50dp"
     android:padding="5dp"
     android:layout_marginTop="15dp"
     android:gravity="center"
@@ -18,15 +20,18 @@
         android:layout_height="wrap_content"
         android:text="CourseName"
         android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
         android:textColor="@color/cardview_light_background"
         android:textStyle="bold"
         android:textSize="16sp"/>
 
     <TextView
         android:layout_width="50dp"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:text="View All"
         android:gravity="center"
+        android:layout_marginTop="10dp"
         android:textColor="@color/cardview_light_background"
         android:layout_alignParentRight="true"
         android:background="@drawable/viewall_background"

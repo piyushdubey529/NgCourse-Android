@@ -1,5 +1,6 @@
-package com.ngcourse;
+package com.ngcourse.activities;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -7,7 +8,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
@@ -16,12 +16,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.ngcourse.Fragments.FragmentCourseList;
 import com.ngcourse.Fragments.FragmentEventList;
 import com.ngcourse.Fragments.FragmentHomePage;
-import com.ngcourse.Fragments.FragmentUpload;
 import com.ngcourse.Fragments.FragmentUploadVideo;
 import com.ngcourse.Fragments.FragmentVideoList;
+import com.ngcourse.R;
 import com.ngcourse.utilities.FontAwesome;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,

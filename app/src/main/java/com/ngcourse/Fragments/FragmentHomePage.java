@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.ngcourse.NetworkCall.NetworkCallResponse;
@@ -74,6 +75,8 @@ public class FragmentHomePage extends Fragment implements BottomNavigationView.O
     private ArrayList<Video> videoList = new ArrayList<>();
     private ArrayList<HorizantalView> horizontalList = new ArrayList<>();
     private ProgressBar progressBar;
+    private LinearLayout borderMongodb;
+    private LinearLayout borderAngularcourse;
 
     @Nullable
     @Override
@@ -138,12 +141,12 @@ public class FragmentHomePage extends Fragment implements BottomNavigationView.O
     }
 
     private void prepareHorizontalList() {
-        HorizantalView horizantalView = new HorizantalView(R.drawable.videos, "Videos");
-        HorizantalView horizantalView1 = new HorizantalView(R.drawable.courses, "Courses");
-        HorizantalView horizantalView2 = new HorizantalView(R.drawable.event, "Events");
-        HorizantalView horizantalView3 = new HorizantalView(R.drawable.blogs, "Blogs");
+        HorizantalView horizantalView = new HorizantalView(R.drawable.videohorizontal, "Videos");
+        HorizantalView horizantalView1 = new HorizantalView(R.drawable.bloghorizontal, "Courses");
+        HorizantalView horizantalView2 = new HorizantalView(R.drawable.eventhorizontal, "Events");
+        HorizantalView horizantalView3 = new HorizantalView(R.drawable.bloghorizontal1, "Blogs");
         HorizantalView horizantalView4 = new HorizantalView(R.drawable.earming, "Earning");
-        HorizantalView horizantalView5 = new HorizantalView(R.drawable.upload, "Upload");
+        HorizantalView horizantalView5 = new HorizantalView(R.drawable.uploadhorizontal, "Upload");
         horizontalList.add(horizantalView);
         horizontalList.add(horizantalView1);
         horizontalList.add(horizantalView2);
@@ -198,6 +201,8 @@ public class FragmentHomePage extends Fragment implements BottomNavigationView.O
         recyclerViewIonicCourse = (RecyclerView) mContext.findViewById(R.id.ioniccourserecyclerview);
         recyclerViewHorizontal = (RecyclerView) mContext.findViewById(R.id.horizontalrecyclerview);
         progressBar = (ProgressBar) mContext.findViewById(R.id.progress_bar);
+        borderMongodb = (LinearLayout) mContext.findViewById(R.id.border_mongodbcourse);
+        borderAngularcourse = (LinearLayout) mContext.findViewById(R.id.border_angularcourse);
     }
 
     @Override
@@ -224,6 +229,17 @@ public class FragmentHomePage extends Fragment implements BottomNavigationView.O
 
     @Override
     public void callResponse(Boolean response, String API_TAG) {
+        if (response){
+            switch (API_TAG){
+                case "angular":
+                    borderAngularcourse.setVisibility(View.VISIBLE);
+                    break;
+                case "mongodb":
+                    borderMongodb.setVisibility(View.VISIBLE);
+                    break;
+            }
+            borderMongodb.setVisibility(View.VISIBLE);
+        }
         this.API_TAG = API_TAG;
         AppProgress.hideProgress(mContext, progressBar);
     }
